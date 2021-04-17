@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/purple_200">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#1E1C1C">
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:drawableStart="@drawable/ic_theaters_white_18dp"
+            android:text="@string/uscFilms"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/movies_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="-16dp"
+            android:layout_toStartOf="@id/tv_button"
+            android:background="@android:color/darker_gray"
+
+            android:text="Movies"
+            app:backgroundTint="#1E1C1C"
+            app:iconPadding="0dp" />
+
+        <Button
+            android:id="@+id/tv_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/darker_gray"
+            android:text="TV Shows"
+            app:backgroundTint="#1E1C1C"
+            app:iconPadding="0dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/movies_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/relativeLayout1"
+        android:background="@color/teal_700">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/tv_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/relativeLayout1"
+        android:background="@color/blueIcon"></RelativeLayout>
+
+
+    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="200dp"-->
+    <!--android:background="@color/purple_700">-->
+    <!--</RelativeLayout>-->
+</RelativeLayout>
