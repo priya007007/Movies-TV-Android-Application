@@ -6,11 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,6 +25,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -28,6 +34,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
 
+    private static final String TAG = "initRecyclerView";//tag words not sure what it is
 
     @Nullable
     @Override
@@ -36,7 +43,7 @@ public class HomeFragment extends Fragment {
         String url ="http://10.0.2.2:8080/movieNowPlaying";
         String tag;
         Object msg;
-        ArrayList<JSONObject> response_new = new ArrayList<JSONObject>();
+       ArrayList<CardModel> response_new = new ArrayList<CardModel>();
 
 
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -45,26 +52,35 @@ public class HomeFragment extends Fragment {
                 response ->
                 {
                     System.out.println(response);
-//                    response
+//                    JSONObject imgresponse = new JSONObject(response);
+                    for(int i=0; i<5;i++){
+                        try {
+                            JSONObject response_temp = ((JSONObject)response.get(i+""));
+                            String backdrop_path = (String) response_temp.get("backdrop_path");
+                            String id = String.valueOf(response_temp.get("id"));
+                            response_new.add(new CardModel(backdrop_path,id));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    System.out.println("response_new");
+                    System.out.println(response_new);
                 }, error -> System.out.println(error));
+
 
         queue.add(stringRequest) ;
         View v =inflater.inflate(R.layout.fragment_home,container,false);
-//        Glide.with(context)
-//                .load("http://via.placeholder.com/300.png")
-//                .override(300, 200)
-//                .into(ivImg);
-//       final TextView textView = v.findViewById(R.id.text_test);
+
         final Button button_movie = v.findViewById(R.id.movies_button);
         final Button button_tv = v.findViewById(R.id.tv_button);
         View  rel_movie = v.findViewById(R.id.movies_layout);
         View  rel_tv = v.findViewById(R.id.tv_layout);
-        rel_movie.setVisibility(View.VISIBLE);
-        rel_tv.setVisibility(View.GONE);
         button_movie.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 rel_movie.setVisibility(View.VISIBLE);
                 rel_tv.setVisibility(View.GONE);
+                Toast.makeText(v.getContext(),"hello?",Toast.LENGTH_SHORT).show();
+//                System.out.println("ToastPLEASE WORK");
             }
         });
         button_tv.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +90,16 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        initRecyclerView(v,response_new);
 
         return v;
-    };
+    }
+    private void initRecyclerView(View v,ArrayList<CardModel> response_new ){
+        Log.d(TAG,"initRecyclerView: init recyclerview");
+        LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext(), LinearLayoutManager.HORIZONTAL,false);
+        RecyclerView recyclerView = v.findViewById(R.id.recylerView1);//
+        recyclerView.setLayoutManager(layoutManager);
+        RecyclerViewAdaptor adapter = new RecyclerViewAdaptor(v.getContext(),response_new); //
+        recyclerView.setAdapter(adapter);//
+    }
     }

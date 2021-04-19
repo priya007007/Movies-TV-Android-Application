@@ -46,25 +46,27 @@
             app:iconPadding="0dp" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/movies_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/relativeLayout1"
-        android:background="@color/teal_700">
-    </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/tv_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/relativeLayout1"
-        android:background="@color/blueIcon"></RelativeLayout>
+        android:background="@color/blueIcon">
 
-
-    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="200dp"-->
-    <!--android:background="@color/purple_700">-->
-    <!--</RelativeLayout>-->
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/movies_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/relativeLayout1"
+        android:background="@color/teal_700">
+<!--RECYLE-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recylerView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"/>
+    </RelativeLayout>
 </RelativeLayout>
