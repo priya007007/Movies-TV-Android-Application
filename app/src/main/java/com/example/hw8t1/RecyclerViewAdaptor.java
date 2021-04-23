@@ -46,8 +46,6 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
                 .into(holder.imageView);
         viewH.card_view.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                System.out.println("Entered on CLICK #$$%%");
-                Log.e("CATCHYLINES WHY NOT ","LOLLLLLLLLLLLLLLLLLLLLLLLLLLLLL" );
                 Intent intent = new Intent(view.getContext(), Details1Activity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("type","movie");

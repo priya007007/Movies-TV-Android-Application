@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment {
                 rel_movie.setVisibility(View.VISIBLE);
                 rel_tv.setVisibility(View.GONE);
                 Toast.makeText(v.getContext(),"hello?",Toast.LENGTH_SHORT).show();
-//                System.out.println("ToastPLEASE WORK");
+
             }
         });
         button_tv.setOnClickListener(new View.OnClickListener() {

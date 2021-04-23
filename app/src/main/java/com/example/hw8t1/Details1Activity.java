@@ -3,8 +3,8 @@ package com.example.hw8t1;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
@@ -15,42 +15,26 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.squareup.picasso.Picasso;
 //import com.pierfrancescosoffritti.androidyoutubeplayer;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.FileReader;
-import java.lang.reflect.Type;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 public class Details1Activity extends AppCompatActivity {
 
@@ -176,30 +160,46 @@ public class Details1Activity extends AppCompatActivity {
                 }
             });
 
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        SharedPreferences.Editor editor = pref.edit();
+
+        String strJson = pref.getString("watchlistB","");
+            TextView add_button = findViewById(R.id.add_button);
+            TextView remove_button = findViewById(R.id.remove_button);
+            remove_button.setVisibility(View.GONE);
+            if(strJson==""||strJson==null){
+                boolean a = true;
+            }
+            else{
+                List<String> watchlistItems = new ArrayList<>(Arrays.asList(strJson.split("####")));
+
+                for(int i = 0; i<watchlistItems.size();i++)
+                {
+                    String each_set = watchlistItems.get(i);
+                    List<String> each_set_array = new ArrayList<>(Arrays.asList(each_set.split("@")));
+                    String id_set = each_set_array.get(0);
+                    String type_set = each_set_array.get(1);
+                    if (String.valueOf(id_here).equals(id_set) && type.equals(type_set)){
+                        remove_button.setVisibility(View.VISIBLE);
+                        add_button.setVisibility(View.GONE);
+
+                    }
+
+                }
+            }
 
 
 
+        CardView card_add_remove = findViewById(R.id.card_add_remove);
+        card_add_remove.setOnClickListener(new View.OnClickListener(){
+        String strJson = pref.getString("watchlistB","");
 
-        TextView add_button = findViewById(R.id.add_button);
-        add_button.setOnClickListener(new View.OnClickListener(){
+
+
 
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-                SharedPreferences.Editor editor = pref.edit();
-
-
-
-//                JSONObject obj1 = new JSONObject();
-//                try {
-//                    obj1.put("id", id_here);
-//                    obj1.put("poster", poster);
-//                    obj1.put("type", type);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-
                 /*
 
                 String watchlist = id + "@split@" + poster + "@split@" + type + "####"
@@ -215,15 +215,9 @@ public class Details1Activity extends AppCompatActivity {
 
                 */
 
-             //   Gson gson = new Gson();
-
-                String strJson = pref.getString("watchlistB","");
                 if(strJson==""||strJson==null){
                     System.out.println("The watchlist is empty: first loop");
                     String new_cinema = id_here + "@" + type + "@" + poster;
-//                    ArrayList<JSONObject> obj2 = new ArrayList<>();
-//                    obj2.add(obj1);
-//                    String arrayData = gson.toJson(obj2);
                     editor.putString("watchlistB",new_cinema );
                     editor.apply();
                 }
@@ -232,8 +226,6 @@ public class Details1Activity extends AppCompatActivity {
                        System.out.println("strJson");
                        System.out.println(strJson);
                         List<String> watchlistItems = new ArrayList<>(Arrays.asList(strJson.split("####")));
-//                        System.out.println(" else: for :watchlistItems ");
-//                        System.out.println((watchlistItems));
                         boolean exists = false;
                         for(int i = 0; i<watchlistItems.size();i++){
 //                            System.out.println(watchlistItems.size());
@@ -244,6 +236,8 @@ public class Details1Activity extends AppCompatActivity {
                             String type_set = each_set_array.get(1);
 
                             if (String.valueOf(id_here).equals(id_set) && type.equals(type_set)){
+                                String x = " was added to watchlist.";
+                                Toast.makeText(getApplicationContext(),(String)x ,Toast.LENGTH_LONG).show();
                                 System.out.println("to be removed");
                                 System.out.println(id_here);
                                 System.out.println(type);
@@ -324,6 +318,7 @@ public class Details1Activity extends AppCompatActivity {
                     }
                 }
             }
+
         });
     }
     private void initRecyclerView(Details1Activity details1Activity, ArrayList<model_cast> cast_response){

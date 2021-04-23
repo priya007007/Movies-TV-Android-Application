@@ -62,8 +62,6 @@ public class WatchlistFragment extends Fragment  {
             System.out.println("else");
             System.out.println(watch_display);
         }
-//        RecyclerView data;
-//        data = v.findViewById(R.id.watchlist_recycler_view);
         return  v;
     }
     private void initRecyclerView(View v,ArrayList<watchlist_model> arrays_to_display ){
