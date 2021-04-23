@@ -69,7 +69,7 @@ public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.Vi
                  public void onClick(View view) {
                      Watchlist_add_remove x = new Watchlist_add_remove(
                              context.getApplicationContext(),List_items_display.get(position).id ,List_items_display.get(position)
-                             .type,List_items_display.get(position).img ); //goes to class and adds/removes from watchlist.
+                             .type,List_items_display.get(position).img ,List_items_display.get(position).name); //goes to class and adds/removes from watchlist.
                      x.item();
 
 
@@ -140,6 +140,5 @@ public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.Vi
         }
     }
 
-    public void outside_adaptor(){
-    }
+
 }

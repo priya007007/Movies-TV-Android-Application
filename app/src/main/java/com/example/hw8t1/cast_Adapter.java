@@ -50,7 +50,6 @@ public class cast_Adapter extends RecyclerView.Adapter<cast_Adapter.ViewHolder> 
         ImageView imageView;
         CardView card_view;
         TextView textView;
-        TextView remove;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.cicular_image);

@@ -1,9 +1,11 @@
 package com.example.hw8t1;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +26,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,6 +61,9 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) { // for each positions, for loop done internally, we iterate through and set the image to imageview
     ViewHolder viewH = holder;
+        final String[] title = new String[1];
+        final String[] imdb = new String[1];
+        String[] videoid = new String[2];
         Log.d(TAG, "onCreateViewHolder:called.");
         Glide.with(mcontext)
                 .asBitmap()
@@ -62,16 +78,57 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
                 bundle.putString("poster_path",(ImageUrls.get(position).img));
                 Log.e(ImageUrls.get(position).id,ImageUrls.get(position).img);
                 intent.putExtras(bundle);
-              //  view.getContext().finish();
                 view.getContext().startActivity(intent);
-//                Log.d(TAG, "onClick:clicked on an image:");
-            //   Button button = view.getContext().findViewById(R.id.dots_button);
             }
         });
         holder.popups.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
+                RequestQueue queue = Volley.newRequestQueue(v.getContext());
+                String url_details_imdb = "http://10.0.2.2:8080/"+(ImageUrls.get(position).type)+"/MovieDetails/"+(ImageUrls.get(position).id);
+                StringRequest stringRequestdetails = new StringRequest(Request.Method.GET, url_details_imdb,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                System.out.println("details");
+                                System.out.println( response);
+                                try {
+                                    JSONObject details_list_imdb = new JSONObject(response);
+                                    imdb[0] = details_list_imdb.getString("imdb");
+                                     title[0] = details_list_imdb.getString("title");
+                                    System.out.println(imdb[0]);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("didn't work for volley imdb");
+                    }
+                });
+                queue.add(stringRequestdetails);
+                ///////////////////////
+                String url ="http://10.0.2.2:8080/"+(ImageUrls.get(position).type)+"/moviesVideo/"+(ImageUrls.get(position).id);
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                System.out.println("response details volley");
+                                System.out.println(response);
+                                videoid[0] = response;
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(" didn't work for volley video!");
+                    }
+                });
+                queue.add(stringRequest);
+                //////////////////////////////////////////////////////////////////
+
                 PopupMenu popupMenu = new PopupMenu(v.getContext(), holder.popups);
                 popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu()); //menu res file and menu to attach, R is resource, meny for menu folder
                 popupMenu.show();
@@ -80,88 +137,31 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public boolean onMenuItemClick(MenuItem item) { // handle for each item
+
+
                         switch (item.getItemId()){
                             case R.id.tdmb_dots:
-                                System.out.println("part a works");
+
+                                String url1 = "https://www.imdb.com/title/" +imdb[0];
+                                mcontext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url1)));
                                 return true;
                             case R.id.fb_dots:
-                                System.out.println("part b works");
+                                String url1a = "https://www.imdb.com/title/" +imdb[0];
+                                String url2 = "https://www.facebook.com/sharer/sharer.php?u=" + url1a;
+                                mcontext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url2)));
                                 return true;
                             case R.id.twitter_dots:
+
                                 System.out.println("part c works");
+                                String url1b = "https://www.imdb.com/title/" +imdb[0];
+                                String url3 = "https://twitter.com/intent/tweet?text=Check%20this%20out!%20" + url1b ;
+                                mcontext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url3)));
                                 return true;
                             case R.id.watchlist_dots:
-                                Watchlist_add_remove x = new Watchlist_add_remove(mcontext.getApplicationContext(),(ImageUrls.get(position).id ) ,(ImageUrls.get(position).type),(ImageUrls.get(position).img) ); //goes to class and adds/removes from watchlist.
+                                Watchlist_add_remove x = new Watchlist_add_remove(mcontext.getApplicationContext(),(ImageUrls.get(position).id ) ,(ImageUrls.get(position).type),(ImageUrls.get(position).img) , title[0]); //goes to class and adds/removes from watchlist.
                                 x.item();
-/*
-                                SharedPreferences pref = mcontext.getApplicationContext().getSharedPreferences("MyPref", 0);
-                                SharedPreferences.Editor editor = pref.edit();
-                                String strJson = pref.getString("watchlistB","");
-                                if(strJson==""||strJson==null){
-                                    System.out.println("The watchlist is empty: first loop");
-                                    String new_cinema = (ImageUrls.get(position).id) + "@" + (ImageUrls.get(position).type) + "@" + (ImageUrls.get(position).img);
-                                    editor.putString("watchlistB",new_cinema );
-                                    editor.apply();
-                                }
-                                else{
-                                    try {
-                                        List<String> watchlistItems = new ArrayList<>(Arrays.asList(strJson.split("####")));
-                                        boolean exists = false;
-                                        for(int i = 0; i<watchlistItems.size();i++){
-                                            String each_set = watchlistItems.get(i);
-                                            List<String> each_set_array = new ArrayList<>(Arrays.asList(each_set.split("@")));
-                                            String id_set = each_set_array.get(0);
-                                            String type_set = each_set_array.get(1);
 
-                                            if (String.valueOf(ImageUrls.get(position).id ).equals(id_set) && ImageUrls.get(position).type.equals(type_set)){
-                                                System.out.println("to be removed");
-                                                exists = true;
-                                                watchlistItems.remove(i);
-                                                System.out.println("watchlistItems array after removal below:");
-                                                System.out.println(watchlistItems);
-                                                String put_back_watchlist_after_removal;
-                                                if(watchlistItems.size()==0){
-                                                    editor.putString("watchlistB","");
-                                                    System.out.println("if empty list");
-                                                    editor.apply();
-                                                }
-                                                else{
-                                                    System.out.println("else not  empty list");
-                                                    put_back_watchlist_after_removal = String.join("####", watchlistItems);
-                                                    editor.remove("watchlistB");
-                                                    editor.putString("watchlistB", put_back_watchlist_after_removal);
-                                                    editor.apply();
-                                                }
-                                                String strJson2 = pref.getString("watchlistB","");
-                                                System.out.println("below after getting back string from watchlist to check ");
-                                                System.out.println(strJson2);
 
-                                                break;
-                                            }
-                                        }
-                                        if(!exists){
-                                            String new_cinema ="####"+ ImageUrls.get(position).id + "@" + ImageUrls.get(position).type + "@" + ImageUrls.get(position).img;
-                                            System.out.println("new_cinema");
-                                            System.out.println(new_cinema);
-                                            System.out.println("BEFORE: strJson ");
-                                            System.out.println(strJson);
-                                            strJson = strJson + new_cinema;
-                                            System.out.println("added");
-                                            System.out.println("AFTER: strJson");
-                                            System.out.println(strJson);
-                                            editor.remove("watchlistB");
-                                            editor.putString("watchlistB", strJson);
-                                            editor.apply();
-                                        }
-                                    } catch (Exception e) {
-                                        Log.e("BELOW there s exception","Details1Activity ");
-                                        e.printStackTrace();
-                                        Log.e("ABOVE there s exception","Details1Activity ");
-                                    }
-                                }
-                                */
-//
-                                Toast.makeText(mcontext, "You Clicked " , Toast.LENGTH_LONG).show();
                                 return true;
                             default:
                                 return false;
@@ -175,8 +175,8 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
     }
     @Override
     public int getItemCount() {
-        return ImageUrls.size();
-    } //returns size of list for internals
+        return ImageUrls.size(); //returns size of list for internals
+    }
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView; //need not be same as other
         CardView card_view;

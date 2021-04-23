@@ -8,6 +8,16 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,32 +25,44 @@ import java.util.List;
 
 
 public class Watchlist_add_remove {
+
     String id_here;
     String type;
     String poster;
     Context context;
-  public  Watchlist_add_remove(Context context,String id_here, String type, String poster){
+    String name;
+  public  Watchlist_add_remove(Context context,String id_here, String type, String poster,String name){
       this.context = context;
       this.id_here = id_here;
       this.type = type;
       this.poster = poster;
+      this.name = name;
 
   }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void item(){
+
+
         SharedPreferences pref = context.getSharedPreferences("MyPref", 0);
         SharedPreferences.Editor editor = pref.edit();
         String strJson = pref.getString("watchlistB","");
 
+
+
+
+
+
         if(strJson==""||strJson==null){
-            System.out.println("The watchlist is empty: first loop");
-            String new_cinema = id_here + "@" + type + "@" + poster;
+
+            Toast.makeText(context,  name+" has been added to watchlist. " , Toast.LENGTH_LONG).show();
+            String new_cinema = id_here + "@" + type + "@" + poster+ "@"+name;
             editor.putString("watchlistB",new_cinema );
             editor.apply();
         }
         else{
             try {
+
                 System.out.println("strJson");
                 System.out.println(strJson);
                 List<String> watchlistItems = new ArrayList<>(Arrays.asList(strJson.split("####")));
@@ -55,8 +77,8 @@ public class Watchlist_add_remove {
 
                     if (String.valueOf(id_here).equals(id_set) && type.equals(type_set)){
                         String x = " was added to watchlist.";
-                        Toast.makeText(context,(String)x ,Toast.LENGTH_LONG).show();
                         System.out.println("to be removed");
+                        Toast.makeText(context,  name+" has been removed from watchlist. " , Toast.LENGTH_LONG).show();
                         System.out.println(id_here);
                         System.out.println(type);
                         System.out.println("above this page, below equality");
@@ -87,7 +109,8 @@ public class Watchlist_add_remove {
                     }
                 }
                 if(!exists){
-                    String new_cinema ="####"+ id_here + "@" + type + "@" + poster;
+                    Toast.makeText(context,  name+" has been added to watchlist. " , Toast.LENGTH_LONG).show();
+                    String new_cinema ="####"+ id_here + "@" + type + "@" + poster+ "@"+name;
                     System.out.println("new_cinema");
                     System.out.println(new_cinema);
                     System.out.println("BEFORE: strJson ");

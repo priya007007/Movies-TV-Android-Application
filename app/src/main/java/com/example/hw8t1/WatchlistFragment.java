@@ -35,32 +35,34 @@ public class WatchlistFragment extends Fragment  {
 
         if(watch_display==null || watch_display ==""){
             final TextView set_nothing_visible = v.findViewById(R.id.watchlistEmptyID);
-            //set_nothing_visible.setVisibility(View.VISIBLE);
             set_nothing_visible.setText("Nothing added to watchlist");
-            System.out.println("if");
         }
 
         else{
             final TextView set_nothing_visible = v.findViewById(R.id.watchlistEmptyID); //set nothing to gone
-          //  set_nothing_visible.setVisibility(View.GONE);
             set_nothing_visible.setText("");
 
             List<String> watchlistItems = new ArrayList<>(Arrays.asList(watch_display.split("####")));
-            System.out.println("watchlistItems");
-            System.out.println(watchlistItems);
             ArrayList<watchlist_model> arrays_to_display = new ArrayList<watchlist_model>();
             for(int i = 0; i<watchlistItems.size();i++){
                 String each_set = watchlistItems.get(i);
                 List<String> each_set_array = new ArrayList<>(Arrays.asList(each_set.split("@")));
-                String id_set = each_set_array.get(0);
-                String type_set = each_set_array.get(1);
-                String img_src =  each_set_array.get(2);
-                arrays_to_display.add(new watchlist_model(id_set,type_set,img_src)
-                );
+                System.out.println("each_set_array");
+                System.out.println(each_set_array);
+                try {
+                    String id_set = each_set_array.get(0);
+                    String type_set = each_set_array.get(1);
+                    String img_src =  each_set_array.get(2);
+                    String name = each_set_array.get(3);
+                    arrays_to_display.add(new watchlist_model(id_set,type_set,img_src,name));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
             }
             initRecyclerView(v,arrays_to_display);
-            System.out.println("else");
-            System.out.println(watch_display);
         }
         return  v;
     }

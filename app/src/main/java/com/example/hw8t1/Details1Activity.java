@@ -7,7 +7,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,13 +45,16 @@ public class Details1Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final int[] back = {0};
+        final String[] temp_title = new String[1];
         final String[] videoid = {""};
+        final String[] imdb = new String[1];
         Bundle b = getIntent().getExtras();
         int id_here = b.getInt("id");
         String type = b.getString("type");
+
         String poster = b.getString("poster_path");
         Log.e(String.valueOf(id_here),"id of selected");
-        String url ="http://10.0.2.2:8080/moviesVideo/"+id_here;
+        String url ="http://10.0.2.2:8080/"+type+"/moviesVideo/"+id_here;
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -79,7 +84,7 @@ public class Details1Activity extends AppCompatActivity {
         queue.add(stringRequest);
 
 
-        String url_details = "http://10.0.2.2:8080/MovieDetails/"+id_here;
+        String url_details = "http://10.0.2.2:8080/"+type+"/MovieDetails/"+id_here;
         StringRequest stringRequestdetails = new StringRequest(Request.Method.GET, url_details,
                 new Response.Listener<String>() {
                     @Override
@@ -88,12 +93,13 @@ public class Details1Activity extends AppCompatActivity {
                         System.out.println( response);
                         try {
                             JSONObject details_list = new JSONObject(response);
-
+                            imdb[0] = details_list.getString("imdb");
                             String backdrop = details_list.getString("backdrop_path");
                             ImageView backdrop_image = (ImageView)findViewById(R.id.backdrop_path);
                             Picasso.get().load(backdrop).into(backdrop_image);
 
                             String title = details_list.getString("title");
+                            temp_title[0] = title;
                             TextView title_view = (TextView) findViewById(R.id.title);
                             title_view.setText(title);
 
@@ -157,6 +163,7 @@ public class Details1Activity extends AppCompatActivity {
                 @Override
                 public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                     String videoId = videoid[0];
+                    System.out.println("youtube player entered");
                     youTubePlayer.cueVideo(videoId, 0); //loadVideo autoplays
 
                 }
@@ -192,7 +199,31 @@ public class Details1Activity extends AppCompatActivity {
                 }
             }
 
+        TextView fb = findViewById(R.id.facebook_button);
+        fb.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View v) {
+                String url1a = "https://www.imdb.com/title/" +imdb[0];
+                String url2 = "https://www.facebook.com/sharer/sharer.php?u=" + url1a;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url2));
+                startActivity(i);
+            }
+        });
+
+        TextView tweet = findViewById(R.id.twitter_button);
+        tweet.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                String url1b = "https://www.imdb.com/title/" +imdb[0];
+                String url3 = "https://twitter.com/intent/tweet?text=Check%20this%20out!%20" + url1b ;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url3));
+                startActivity(i);
+            }
+        });
 
         CardView card_add_remove = findViewById(R.id.card_add_remove);
         card_add_remove.setOnClickListener(new View.OnClickListener(){
@@ -202,7 +233,7 @@ public class Details1Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String string_id=String.valueOf(id_here);
-                Watchlist_add_remove x = new Watchlist_add_remove(getApplicationContext(),string_id ,type,poster ); //goes to class and adds/removes from watchlist.
+                Watchlist_add_remove x = new Watchlist_add_remove(getApplicationContext(),string_id ,type,poster ,temp_title[0]); //goes to class and adds/removes from watchlist.
                 x.item();
 
 
