@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="1dp">
+    android:layout_margin="10dp">
 
    <androidx.cardview.widget.CardView
-       android:layout_width="120dp"
+       android:id="@+id/card_view"
+       android:layout_width="100dp"
        android:layout_height="120dp"
       app:cardCornerRadius="4dp"
       android:layout_centerInParent="true"
@@ -18,6 +19,22 @@
           android:id="@+id/imageView"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          tools:srcCompat="@tools:sample/avatars" />
+          tools:srcCompat="@tools:sample/avatars"
+          android:layout_alignParentTop="false"
+          android:scaleType="centerCrop"
+           />
+
+      <Button
+          android:id="@+id/dots_button"
+          android:layout_width="17dp"
+          android:layout_height="21dp"
+          android:layout_gravity="right"
+          android:background="@drawable/ic_baseline_more_vert_24"
+          android:layout_marginTop="90dp"
+          app:backgroundTint="#FFFFFF" />
+
+
    </androidx.cardview.widget.CardView>
 </RelativeLayout>
+
+<!--Layout for main slide -->

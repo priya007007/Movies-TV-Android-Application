@@ -51,8 +51,22 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
-    implementation "androidx.cardview:cardview:1.0.0"
+    implementation "androidx.cardview:cardview:1.0.0" //cardview
 
     implementation "androidx.recyclerview:recyclerview:1.2.0"
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0" // For control over item selection of both touch and mouse driven selection
+
+
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5' //youtube
+    implementation 'com.borjabravo:readmoretextview:2.1.0' //read more
+
+    implementation 'com.squareup.picasso:picasso:2.71828'//picasso
+
+    implementation 'de.hdodenhof:circleimageview:3.1.0'//circular view
+
+
+    implementation 'com.googlecode.json-simple:json-simple:1.1' //Parser
+    implementation 'com.google.code.gson:gson:2.8.6' //gson
+
+
 }

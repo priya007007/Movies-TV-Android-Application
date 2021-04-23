@@ -10,14 +10,16 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
+ Fragment Home,Search,Watchlist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_hw9);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -36,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new WatchlistFragment();
                     break;
             }
-getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
+            String backstate = selectedFragment.getClass().getName();
+
+getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).addToBackStack(backstate).commit();
 return true;
         }
     };

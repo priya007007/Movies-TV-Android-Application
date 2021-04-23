@@ -32,44 +32,45 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
-
-
     private static final String TAG = "initRecyclerView";//tag words not sure what it is
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        System.out.println("Called - goes to home fragment");
+        View v =inflater.inflate(R.layout.fragment_home,container,false);
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        String url ="http://10.0.2.2:8080/movieNowPlaying";
+        String url ="http://10.0.2.2:8080/PopularMovies";
         String tag;
         Object msg;
        ArrayList<CardModel> response_new = new ArrayList<CardModel>();
-
-
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-
-
                 response ->
                 {
                     System.out.println(response);
-//                    JSONObject imgresponse = new JSONObject(response);
-                    for(int i=0; i<5;i++){
+                    for(int i=0; i<10;i++){
                         try {
                             JSONObject response_temp = ((JSONObject)response.get(i+""));
-                            String backdrop_path = (String) response_temp.get("backdrop_path");
+                            String poster_path = (String) response_temp.get("poster_path");
                             String id = String.valueOf(response_temp.get("id"));
-                            response_new.add(new CardModel(backdrop_path,id));
+                            response_new.add(new CardModel(poster_path,id));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
+                    initRecyclerView(v,response_new);
                     System.out.println("response_new");
                     System.out.println(response_new);
                 }, error -> System.out.println(error));
 
 
         queue.add(stringRequest) ;
-        View v =inflater.inflate(R.layout.fragment_home,container,false);
+
 
         final Button button_movie = v.findViewById(R.id.movies_button);
         final Button button_tv = v.findViewById(R.id.tv_button);
@@ -90,7 +91,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        initRecyclerView(v,response_new);
+       // initRecyclerView(v,response_new);
 
         return v;
     }
