@@ -31,7 +31,8 @@
           android:layout_gravity="right"
           android:background="@drawable/ic_baseline_more_vert_24"
           android:layout_marginTop="90dp"
-          app:backgroundTint="#FFFFFF" />
+          app:backgroundTint="#FFFFFF"
+          />
 
 
    </androidx.cardview.widget.CardView>

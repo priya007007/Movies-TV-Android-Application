@@ -120,8 +120,7 @@ public class Details1Activity extends AppCompatActivity {
             }
         });
         queue.add(stringRequestdetails);
-        String url_cast = "http://10.0.2.2:8080/Android_Movie_Cast_Details/"+id_here;
-//        ArrayList<watchlist_model> response_new = new ArrayList<watchlist_model>();
+        String url_cast = "http://10.0.2.2:8080/"+type+"/Android_Movie_Cast_Details/"+id_here;
         ArrayList<model_cast> cast_response = new ArrayList<model_cast>();
         JsonArrayRequest string_req_cast = new JsonArrayRequest (Request.Method.GET, url_cast,null,
 
@@ -134,10 +133,13 @@ public class Details1Activity extends AppCompatActivity {
                             String full_profile_path = (String) response_temp.get("full_profile_path");
                             String name = String.valueOf(response_temp.get("name"));
                             cast_response.add(new model_cast(full_profile_path,name));
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
+                    System.out.println("cast_response");
+                    System.out.println(cast_response);
                     initRecyclerView(this,cast_response);
 
                 }, error -> System.out.println(error));
@@ -177,6 +179,8 @@ public class Details1Activity extends AppCompatActivity {
                 {
                     String each_set = watchlistItems.get(i);
                     List<String> each_set_array = new ArrayList<>(Arrays.asList(each_set.split("@")));
+                    System.out.println("watchlist before error");
+                    System.out.println(each_set_array);
                     String id_set = each_set_array.get(0);
                     String type_set = each_set_array.get(1);
                     if (String.valueOf(id_here).equals(id_set) && type.equals(type_set)){
@@ -194,13 +198,16 @@ public class Details1Activity extends AppCompatActivity {
         card_add_remove.setOnClickListener(new View.OnClickListener(){
         String strJson = pref.getString("watchlistB","");
 
-
-
-
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                /*
+                String string_id=String.valueOf(id_here);
+                Watchlist_add_remove x = new Watchlist_add_remove(getApplicationContext(),string_id ,type,poster ); //goes to class and adds/removes from watchlist.
+                x.item();
+
+
+
+           /*
 
                 String watchlist = id + "@split@" + poster + "@split@" + type + "####"
                 watchlist += id + "@split@" + poster + "@split@" + type + "####"
@@ -214,7 +221,7 @@ public class Details1Activity extends AppCompatActivity {
                 String title = movieItems[1];
 
                 */
-
+/*
                 if(strJson==""||strJson==null){
                     System.out.println("The watchlist is empty: first loop");
                     String new_cinema = id_here + "@" + type + "@" + poster;
@@ -282,41 +289,13 @@ public class Details1Activity extends AppCompatActivity {
                             editor.putString("watchlistB", strJson);
                             editor.apply();
                         }
-//                        ArrayList <JSONObject>  json = new ArrayList(Collections.singleton(strJson));
-//                        Type collectionType = new TypeToken<Collection<Integer>>(){}.getType();
-//                        Collection<Integer> ints2 = gson.fromJson(json, collectionType);
-//                        Type collectionType =  new TypeToken<Collection<JSONObject>>(){}.getType();
-//                        Collection<JSONObject> listFromGson2 = gson.fromJson(strJson, collectionType);
-//                        ArrayList <JSONObject> listFromGson = new ArrayList<>(listFromGson2);
-
-//                        ArrayList<JSONObject> listFromGson = gson.fromJson(strJson,
-//                                new TypeToken<ArrayList<JSONObject>>() {}.getType());
-//                        System.out.println(listFromGson);
-//                        System.out.println("listFromGson");
-
-//                        for(int i=0;i <listFromGson.size();i++)
-//                        {
-//                            JSONObject temp =listFromGson.get(i);
-//                            System.out.println("TEEE HEEEEEEEEEE");
-//                            for (Iterator<String> it = temp.keys(); it.hasNext(); ) {
-//                                String x = it.next();
-//                                System.out.println( x);
-//                            }
-//
-//                            String temp_id = temp.getString("id");
-//                            System.out.println("temp_id");
-//                            System.out.println(temp_id);
-//                        }
-
-                      //  convert_from_json[] founderArray = gson.fromJson(strJson, convert_from_json[].class);
-                        //System.out.println("founderArray below");
 
                     } catch (Exception e) {
                         Log.e("BELOW there s exception","Details1Activity ");
                         e.printStackTrace();
                         Log.e("ABOVE there s exception","Details1Activity ");
                     }
-                }
+                } */
             }
 
         });

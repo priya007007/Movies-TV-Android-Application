@@ -3,10 +3,12 @@ package com.example.hw8t1;
 public class CardModel {
     String img;
     String id;
+    String type;
 
-    public CardModel(String img, String id){
+    public CardModel(String img, String id,String type){
         this.img = img;
         this.id =id;
+        this.type=type;
     }
 
     public String getImg() {
@@ -16,4 +18,5 @@ public class CardModel {
     public String getId() {
         return id;
     }
+    public String getType(){return type;}
 }

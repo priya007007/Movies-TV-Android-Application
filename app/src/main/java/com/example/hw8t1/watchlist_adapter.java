@@ -67,40 +67,49 @@ public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.Vi
                  @RequiresApi(api = Build.VERSION_CODES.O)
                  @Override
                  public void onClick(View view) {
-                     outside_adaptor();
+                     Watchlist_add_remove x = new Watchlist_add_remove(
+                             context.getApplicationContext(),List_items_display.get(position).id ,List_items_display.get(position)
+                             .type,List_items_display.get(position).img ); //goes to class and adds/removes from watchlist.
+                     x.item();
 
-                     System.out.println("removed button clicked");
-                     SharedPreferences pref = context.getApplicationContext().getSharedPreferences("MyPref", 0);
-                     SharedPreferences.Editor editor = pref.edit();
-                      String type_remove =   List_items_display.get(position).type;
-                      String id_remove =  List_items_display.get(position).id;
-                      String strJson = pref.getString("watchlistB","");
-                     List<String> watchlistItems = new ArrayList<>(Arrays.asList(strJson.split("####")));
-                     for(int i = 0; i<watchlistItems.size();i++){
-                         String each_set = watchlistItems.get(i);
-                         List<String> each_set_array = new ArrayList<>(Arrays.asList(each_set.split("@")));
-                         String id_set = each_set_array.get(0);
-                         String type_set = each_set_array.get(1);
-                         if (String.valueOf(id_set).equals(id_remove) && type_set.equals(type_remove)){
-                             watchlistItems.remove(i);
-                             String put_back_watchlist_after_removal;
-                             if(watchlistItems.size()==0){
-                                 editor.putString("watchlistB","");
-                                 System.out.println("if empty list");
-                                 editor.apply();
-                             }
-                             else{
-                                 System.out.println("else not  empty list");
-                                 put_back_watchlist_after_removal = String.join("####", watchlistItems);
-                                 editor.remove("watchlistB");
-                                 editor.putString("watchlistB", put_back_watchlist_after_removal);
-                                 editor.apply();
-                                 notifyDataSetChanged();
-                             }
 
-                         }
-                     }
+//                     System.out.println("removed button clicked");
+//                     SharedPreferences pref = context.getApplicationContext().getSharedPreferences("MyPref", 0);
+//                     SharedPreferences.Editor editor = pref.edit();
+//                      String type_remove =   List_items_display.get(position).type;
+//                      String id_remove =  List_items_display.get(position).id;
+//                      String strJson = pref.getString("watchlistB","");
+//                     List<String> watchlistItems = new ArrayList<>(Arrays.asList(strJson.split("####")));
+//                     for(int i = 0; i<watchlistItems.size();i++){
+//                         String each_set = watchlistItems.get(i);
+//                         List<String> each_set_array = new ArrayList<>(Arrays.asList(each_set.split("@")));
+//                         String id_set = each_set_array.get(0);
+//                         String type_set = each_set_array.get(1);
+//                         if (String.valueOf(id_set).equals(id_remove) && type_set.equals(type_remove)){
+//                             watchlistItems.remove(i);
+//                             String put_back_watchlist_after_removal;
+//                             if(watchlistItems.size()==0){
+//                                 notifyDataSetChanged();
+//                                 editor.putString("watchlistB","");
+//                                 editor.commit();
+//                                // notifyDataSetChanged();
+//                             }
+//                             else{
+//                                 notifyDataSetChanged();
+//                                 System.out.println("else not  empty list");
+//                                 put_back_watchlist_after_removal = String.join("####", watchlistItems);
+//                                 editor.remove("watchlistB");
+//                                 editor.putString("watchlistB", put_back_watchlist_after_removal);
+//                                 editor.commit();
+//                                 System.out.println("else");
+//                                 System.out.println(put_back_watchlist_after_removal);
+//
+//                             }
+//
+//                         }
+//                     }
 
+                     notifyDataSetChanged();
                  }
 
               });
@@ -109,6 +118,7 @@ public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.Vi
 
          }
          catch(Exception e){}
+
      }
      @Override
      public int getItemCount() {

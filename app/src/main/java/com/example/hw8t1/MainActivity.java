@@ -40,8 +40,17 @@ public class MainActivity extends AppCompatActivity {
             }
             String backstate = selectedFragment.getClass().getName();
 
+
 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).addToBackStack(backstate).commit();
 return true;
         }
+
+        public void onBackPressed(){
+
+        }
     };
+
+
+
+
 }

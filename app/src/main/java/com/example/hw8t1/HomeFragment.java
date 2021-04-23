@@ -58,14 +58,12 @@ public class HomeFragment extends Fragment {
                             JSONObject response_temp = ((JSONObject)response.get(i+""));
                             String poster_path = (String) response_temp.get("poster_path");
                             String id = String.valueOf(response_temp.get("id"));
-                            response_new.add(new CardModel(poster_path,id));
+                            response_new.add(new CardModel(poster_path,id,"movie"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                     initRecyclerView(v,response_new);
-                    System.out.println("response_new");
-                    System.out.println(response_new);
                 }, error -> System.out.println(error));
 
 
@@ -91,7 +89,10 @@ public class HomeFragment extends Fragment {
             }
         });
 
-       // initRecyclerView(v,response_new);
+
+
+
+
 
         return v;
     }
