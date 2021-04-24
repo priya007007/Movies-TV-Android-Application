@@ -39,7 +39,6 @@ public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.Vi
          View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.watchlist_item,parent,false);
          return new ViewHolder(view);
      }
-
      @Override
      public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
          try{ViewHolder viewH = holder;
@@ -60,8 +59,6 @@ public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.Vi
                      intent.putExtras(bundle);
                      view.getContext().startActivity(intent);
                  }
-
-
              });
              holder.rem.setOnClickListener(new View.OnClickListener(){
                  @RequiresApi(api = Build.VERSION_CODES.O)
@@ -71,7 +68,35 @@ public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.Vi
                              context.getApplicationContext(),List_items_display.get(position).id ,List_items_display.get(position)
                              .type,List_items_display.get(position).img ,List_items_display.get(position).name); //goes to class and adds/removes from watchlist.
                      x.item();
+                     notifyDataSetChanged();
+                 }
+              });
+         }
+         catch(Exception e){}
 
+     }
+     @Override
+     public int getItemCount() {
+         return List_items_display.size();
+     }
+
+     public class ViewHolder extends  RecyclerView.ViewHolder{
+         ImageView imageView;
+         CardView card_view;
+         TextView textView;
+         TextView rem;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.imageView_watchlist);
+            card_view = itemView.findViewById(R.id.card_s);
+            textView = itemView.findViewById(R.id.type_movie_tv);
+            rem = itemView.findViewById(R.id.remove_from_watchlist);
+        }
+    }
+
+
+}
 
 //                     System.out.println("removed button clicked");
 //                     SharedPreferences pref = context.getApplicationContext().getSharedPreferences("MyPref", 0);
@@ -108,37 +133,3 @@ public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.Vi
 //
 //                         }
 //                     }
-
-                     notifyDataSetChanged();
-                 }
-
-              });
-
-
-
-         }
-         catch(Exception e){}
-
-     }
-     @Override
-     public int getItemCount() {
-         return List_items_display.size();
-     }
-
-     public class ViewHolder extends  RecyclerView.ViewHolder{
-         ImageView imageView;
-         CardView card_view;
-         TextView textView;
-         TextView rem;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageView = itemView.findViewById(R.id.imageView_watchlist);
-            card_view = itemView.findViewById(R.id.card_s);
-            textView = itemView.findViewById(R.id.type_movie_tv);
-            rem = itemView.findViewById(R.id.remove_from_watchlist);
-        }
-    }
-
-
-}

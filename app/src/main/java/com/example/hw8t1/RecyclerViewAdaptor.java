@@ -47,9 +47,11 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
    private static final String TAG = "RecylerViewAdaptor";
     private ArrayList<CardModel> ImageUrls = new ArrayList<>();
     private final Context mcontext;
-    public RecyclerViewAdaptor(Context context,ArrayList<CardModel> mImageUrls){ //for all
+    boolean p;
+    public RecyclerViewAdaptor(Context context,ArrayList<CardModel> mImageUrls,Boolean p ){ //for all
     ImageUrls=mImageUrls; //to send in the data
     mcontext = context;
+    this.p=p;
 }
     @NonNull
     @Override
@@ -73,7 +75,7 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
             public void onClick(View view){
                 Intent intent = new Intent(view.getContext(), Details1Activity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("type","movie");
+                bundle.putString("type",(ImageUrls.get(position).type));
                 bundle.putInt("id",Integer.parseInt(ImageUrls.get(position).id));
                 bundle.putString("poster_path",(ImageUrls.get(position).img));
                 Log.e(ImageUrls.get(position).id,ImageUrls.get(position).img);
@@ -81,7 +83,9 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
                 view.getContext().startActivity(intent);
             }
         });
-        holder.popups.setOnClickListener(new View.OnClickListener(){
+
+        if(p){
+        holder.popups.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -162,6 +166,7 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
                                 x.item();
 
 
+
                                 return true;
                             default:
                                 return false;
@@ -172,6 +177,7 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
                 });
             }
         });
+    }
     }
     @Override
     public int getItemCount() {
@@ -186,7 +192,12 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
 
             imageView = itemView.findViewById(R.id.imageView);
             card_view = itemView.findViewById(R.id.card_view);
-             popups = itemView.findViewById(R.id.dots_button);
+            popups = itemView.findViewById(R.id.dots_button);
+            if(!p)
+            {
+                popups.setVisibility(View.GONE);
+            }
+
 
         }
     }

@@ -88,12 +88,6 @@ public class HomeFragment extends Fragment {
                 rel_movie.setVisibility(View.GONE);
             }
         });
-
-
-
-
-
-
         return v;
     }
     private void initRecyclerView(View v,ArrayList<CardModel> response_new ){
@@ -101,7 +95,8 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext(), LinearLayoutManager.HORIZONTAL,false);
         RecyclerView recyclerView = v.findViewById(R.id.recylerView1);//
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerViewAdaptor adapter = new RecyclerViewAdaptor(v.getContext(),response_new); //
+        Boolean q = true;
+        RecyclerViewAdaptor adapter = new RecyclerViewAdaptor(v.getContext(),response_new,q); //
         recyclerView.setAdapter(adapter);//
     }
     }
