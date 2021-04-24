@@ -48,11 +48,6 @@ public class Watchlist_add_remove {
         SharedPreferences.Editor editor = pref.edit();
         String strJson = pref.getString("watchlistB","");
 
-
-
-
-
-
         if(strJson==""||strJson==null){
 
             Toast.makeText(context,  name+" has been added to watchlist. " , Toast.LENGTH_LONG).show();
@@ -101,10 +96,7 @@ public class Watchlist_add_remove {
                             editor.putString("watchlistB", put_back_watchlist_after_removal);
                             editor.apply();
                         }
-                        String strJson2 = pref.getString("watchlistB","");
-                        System.out.println("below after getting back string from watchlist to check ");
-                        System.out.println(strJson2);
-
+  
                         break;
                     }
                 }
@@ -131,6 +123,46 @@ public class Watchlist_add_remove {
             }
         }
     }
+    public boolean check_if_exists(){
 
+
+        SharedPreferences pref = context.getSharedPreferences("MyPref", 0);
+        SharedPreferences.Editor editor = pref.edit();
+        String strJson = pref.getString("watchlistB","");
+        boolean r = true;
+        if(strJson==""||strJson==null){
+        r = false;
+            return false;
+
+        }
+        else{
+            try {
+
+                List<String> watchlistItems = new ArrayList<>(Arrays.asList(strJson.split("####")));
+                boolean exists = false;
+                for(int i = 0; i<watchlistItems.size();i++){
+                    String each_set = watchlistItems.get(i);
+                    List<String> each_set_array = new ArrayList<>(Arrays.asList(each_set.split("@")));
+                    String id_set = each_set_array.get(0);
+                    String type_set = each_set_array.get(1);
+
+                    if (String.valueOf(id_here).equals(id_set) && type.equals(type_set)){
+                        exists = true;
+                        r = true;
+                        return true;
+                    }
+                }
+                if(!exists){
+                    r = false;
+                    return false;
+                }
+
+            } catch (Exception e) {
+                Log.e("BELOW exist: exception","watchlist_add_remove ");
+                e.printStackTrace();
+            }
+        }
+        return r;
+    }
 
 }

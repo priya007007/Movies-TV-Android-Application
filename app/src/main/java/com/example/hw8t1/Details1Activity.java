@@ -194,8 +194,7 @@ public class Details1Activity extends AppCompatActivity {
         JsonArrayRequest string_req_recommended = new JsonArrayRequest (Request.Method.GET, url_recommended,null,
 
                 response ->
-                { System.out.println("HELL YEAH");
-                    System.out.println(response);
+                {
                     for(int i=0; i<10;i++){
                         try {
                             JSONObject reccom_temp = ((JSONObject)response.get(i));
@@ -234,7 +233,7 @@ public class Details1Activity extends AppCompatActivity {
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         SharedPreferences.Editor editor = pref.edit();
-
+//ADD REMOVE BUTTON ON LOADING DETAILS
         String strJson = pref.getString("watchlistB","");
             TextView add_button = findViewById(R.id.add_button);
             TextView remove_button = findViewById(R.id.remove_button);
@@ -297,6 +296,23 @@ public class Details1Activity extends AppCompatActivity {
             public void onClick(View v) {
                 String string_id=String.valueOf(id_here);
                 Watchlist_add_remove x = new Watchlist_add_remove(getApplicationContext(),string_id ,type,poster ,temp_title[0]); //goes to class and adds/removes from watchlist.
+
+
+               Boolean exists =  x.check_if_exists();
+                System.out.println("exists");
+
+                System.out.println(exists);
+                TextView add_button = findViewById(R.id.add_button);
+                TextView remove_button = findViewById(R.id.remove_button);
+
+               if(exists){
+                   add_button.setVisibility(View.GONE);
+                   remove_button.setVisibility(View.VISIBLE);
+               }
+               else{
+                   add_button.setVisibility(View.VISIBLE);
+                   remove_button.setVisibility(View.GONE);
+               }
                 x.item();
 
             }

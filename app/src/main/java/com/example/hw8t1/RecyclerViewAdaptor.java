@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,26 +116,33 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
                 });
                 queue.add(stringRequestdetails);
                 ///////////////////////
-                String url ="http://10.0.2.2:8080/"+(ImageUrls.get(position).type)+"/moviesVideo/"+(ImageUrls.get(position).id);
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                System.out.println("response details volley");
-                                System.out.println(response);
-                                videoid[0] = response;
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        System.out.println(" didn't work for volley video!");
-                    }
-                });
-                queue.add(stringRequest);
+//                String url ="http://10.0.2.2:8080/"+(ImageUrls.get(position).type)+"/moviesVideo/"+(ImageUrls.get(position).id);
+//                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+//                        new Response.Listener<String>() {
+//                            @Override
+//                            public void onResponse(String response) {
+//                                System.out.println("response details volley");
+//                                System.out.println(response);
+//                                videoid[0] = response;
+//                            }
+//                        }, new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        System.out.println(" didn't work for volley video!");
+//                    }
+//                });
+//                queue.add(stringRequest);
                 //////////////////////////////////////////////////////////////////
+                Watchlist_add_remove x = new Watchlist_add_remove(mcontext.getApplicationContext(),(ImageUrls.get(position).id) ,(ImageUrls.get(position).type),(ImageUrls.get(position).img) ,"temp_name");
+                Boolean it_exists =  x.check_if_exists();
 
                 PopupMenu popupMenu = new PopupMenu(v.getContext(), holder.popups);
-                popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu()); //menu res file and menu to attach, R is resource, meny for menu folder
+
+                if(it_exists){ popupMenu.getMenuInflater().inflate(R.menu.popup_menu_remove, popupMenu.getMenu());}
+                else{
+                    popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu()); //menu res file and menu to attach, R is resource, menu for menu folder
+
+                }
                 popupMenu.show();
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
 

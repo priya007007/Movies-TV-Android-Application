@@ -2,7 +2,6 @@ package com.example.hw8t1;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,20 +18,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.security.AccessController;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.ViewHolder> {
     private static final String TAG = "RecycleView WATCHLIST";
     private ArrayList<watchlist_model> List_items_display  = new ArrayList<>();
      private final Context context;
-
     public watchlist_adapter(Context context, ArrayList<watchlist_model> list_items_display) {
          this.context = context;
          List_items_display = list_items_display;
      }
+//     String h = "";
+//    public watchlist_adapter(Context context, String j) {
+//        this.context = context;
+//        this.h = j;
+//    }
      @NonNull
      @Override
      public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -64,11 +64,15 @@ public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.Vi
                  @RequiresApi(api = Build.VERSION_CODES.O)
                  @Override
                  public void onClick(View view) {
+
                      Watchlist_add_remove x = new Watchlist_add_remove(
                              context.getApplicationContext(),List_items_display.get(position).id ,List_items_display.get(position)
                              .type,List_items_display.get(position).img ,List_items_display.get(position).name); //goes to class and adds/removes from watchlist.
                      x.item();
-                     notifyDataSetChanged();
+                     //notifyDataSetChanged();
+                    //  wf = new WatchlistFragment();
+
+
                  }
               });
          }

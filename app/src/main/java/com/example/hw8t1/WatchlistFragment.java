@@ -11,17 +11,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class WatchlistFragment extends Fragment  {
     private static final String TAG ="watchlist TAG" ;
-
+    ArrayList<watchlist_model> arrays_to_display = new ArrayList<watchlist_model>(); //declared here for drag and drop
+    RecyclerView recyclerView2;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,7 +47,7 @@ public class WatchlistFragment extends Fragment  {
             set_nothing_visible.setText("");
 
             List<String> watchlistItems = new ArrayList<>(Arrays.asList(watch_display.split("####")));
-            ArrayList<watchlist_model> arrays_to_display = new ArrayList<watchlist_model>();
+//            ArrayList<watchlist_model> arrays_to_display = new ArrayList<watchlist_model>();
             for(int i = 0; i<watchlistItems.size();i++){
                 String each_set = watchlistItems.get(i);
                 List<String> each_set_array = new ArrayList<>(Arrays.asList(each_set.split("@")));
@@ -58,22 +62,44 @@ public class WatchlistFragment extends Fragment  {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
-
             }
             initRecyclerView(v,arrays_to_display);
         }
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView2); //declared above easier
         return  v;
     }
-    private void initRecyclerView(View v,ArrayList<watchlist_model> arrays_to_display ){
-        Log.d(TAG,"initRecyclerView:init recyclerview");
-        GridLayoutManager layoutManager2 = new GridLayoutManager(v.getContext(),3,GridLayoutManager.VERTICAL,false);
-        RecyclerView recyclerView2 = v.findViewById(R.id.watchlist_recycler_view);//
+    private void initRecyclerView(View v,ArrayList<watchlist_model> arrays_to_display ) {
+        Log.d(TAG, "initRecyclerView:init recyclerview");
+        GridLayoutManager layoutManager2 = new GridLayoutManager(v.getContext(), 3, GridLayoutManager.VERTICAL, false);
+         recyclerView2 = v.findViewById(R.id.watchlist_recycler_view);//
         recyclerView2.setLayoutManager(layoutManager2);
-        watchlist_adapter adapter2 = new watchlist_adapter(v.getContext(),arrays_to_display); //
+        watchlist_adapter adapter2 = new watchlist_adapter(v.getContext(), arrays_to_display); //
         recyclerView2.setAdapter(adapter2);//
+
     }
+
+
+//public void refresh_watchlist(){
+//    FragmentTransaction ft = getFragmentManager().beginTransaction();
+//    ft.detach(this).attach(this).commit();}
+
+    ItemTouchHelper.SimpleCallback simpleCallback =  new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN|ItemTouchHelper.START|ItemTouchHelper.END|ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT,0) {
+        @Override //2 argument directions and for method swipe we not use
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            int fromPostion = viewHolder.getAbsoluteAdapterPosition(); //getAdapterPosition depreciated
+            int toPosition = target.getAbsoluteAdapterPosition();
+
+            Collections.swap(arrays_to_display,fromPostion,toPosition);
+            recyclerView.getAdapter().notifyItemMoved(fromPostion,toPosition);
+            return false;
+        }
+
+        @Override //for swiping not used now
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+        }
+    };
 }
 
 
