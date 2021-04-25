@@ -44,6 +44,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         System.out.println("Called - goes to home fragment");
         View v =inflater.inflate(R.layout.fragment_home,container,false);
+
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
         String url ="http://10.0.2.2:8080/PopularMovies";
         String tag;
