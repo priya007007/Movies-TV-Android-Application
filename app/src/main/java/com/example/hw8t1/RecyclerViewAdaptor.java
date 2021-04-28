@@ -65,7 +65,7 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) { // for each positions, for loop done internally, we iterate through and set the image to imageview
     ViewHolder viewH = holder;
-        final String[] title = new String[1];
+       // final String[] title = new String[1];
         final String[] imdb = new String[1];
         String[] videoid = new String[2];
         Log.d(TAG, "onCreateViewHolder:called.");
@@ -75,12 +75,13 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
                 .into(holder.imageView);
         viewH.card_view.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+//                System.out.println(" right now in click to details!!!");
                 Intent intent = new Intent(view.getContext(), Details1Activity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("type",(ImageUrls.get(position).type));
                 bundle.putInt("id",Integer.parseInt(ImageUrls.get(position).id));
                 bundle.putString("poster_path",(ImageUrls.get(position).img));
-                Log.e(ImageUrls.get(position).id,ImageUrls.get(position).img);
+               // Log.e(ImageUrls.get(position).id,ImageUrls.get(position).img);
                 intent.putExtras(bundle);
                 view.getContext().startActivity(intent);
             }
@@ -97,13 +98,10 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                System.out.println("details");
-                                System.out.println( response);
                                 try {
                                     JSONObject details_list_imdb = new JSONObject(response);
                                     imdb[0] = details_list_imdb.getString("imdb");
-                                     title[0] = details_list_imdb.getString("title");
-                                    System.out.println(imdb[0]);
+                                //     title[0] = details_list_imdb.getString("title");
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -134,7 +132,7 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
 //                });
 //                queue.add(stringRequest);
                 //////////////////////////////////////////////////////////////////
-                Watchlist_add_remove x = new Watchlist_add_remove(mcontext.getApplicationContext(),(ImageUrls.get(position).id) ,(ImageUrls.get(position).type),(ImageUrls.get(position).img) ,"temp_name");
+                Watchlist_add_remove x = new Watchlist_add_remove(mcontext.getApplicationContext(),(ImageUrls.get(position).id) ,(ImageUrls.get(position).type),(ImageUrls.get(position).img) ,ImageUrls.get(position).name);
                 Boolean it_exists =  x.check_if_exists();
 
                 PopupMenu popupMenu = new PopupMenu(v.getContext(), holder.popups);
@@ -171,7 +169,7 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
                                 mcontext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url3)));
                                 return true;
                             case R.id.watchlist_dots:
-                                Watchlist_add_remove x = new Watchlist_add_remove(mcontext.getApplicationContext(),(ImageUrls.get(position).id ) ,(ImageUrls.get(position).type),(ImageUrls.get(position).img) , title[0]); //goes to class and adds/removes from watchlist.
+                                Watchlist_add_remove x = new Watchlist_add_remove(mcontext.getApplicationContext(),(ImageUrls.get(position).id ) ,(ImageUrls.get(position).type),(ImageUrls.get(position).img) ,(ImageUrls.get(position).name)); //goes to class and adds/removes from watchlist.
                                 x.item();
 
 
@@ -187,6 +185,10 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
             }
         });
     }
+
+        if(!p){
+           //holder.imageView.setForeground();
+        }
     }
     @Override
     public int getItemCount() {

@@ -53,6 +53,8 @@ public class Details1Activity extends AppCompatActivity {
         final String[] videoid = {""};
         final String[] imdb = new String[1];
 
+
+
         Bundle b = getIntent().getExtras();
         int id_here = b.getInt("id");
         String type = b.getString("type");
@@ -93,6 +95,7 @@ public class Details1Activity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
+
                             JSONObject details_list = new JSONObject(response);
                             imdb[0] = details_list.getString("imdb");
                             String backdrop = details_list.getString("backdrop_path");
@@ -113,7 +116,7 @@ public class Details1Activity extends AppCompatActivity {
                             genre_view.setText(genre);
 
                             String year = details_list.getString("release_date");
-                            TextView year_view = (TextView) findViewById(R.id.textView8) ;
+                            TextView year_view = findViewById(R.id.textView8);
                             year_view.setText(year);
 
                         } catch (JSONException e) {
@@ -145,8 +148,6 @@ public class Details1Activity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                    System.out.println("cast_response");
-                    System.out.println(cast_response);
                     initRecyclerView(this,cast_response);
 
                 }, error -> System.out.println(error));
@@ -159,6 +160,10 @@ public class Details1Activity extends AppCompatActivity {
                 response ->
                 {
                     System.out.println(response);
+                    System.out.println(id_here);
+                    System.out.println("type");
+                    System.out.println(type);
+
                     for(int i=0; i<3;i++){
                         try {
                             System.out.println("response");
@@ -174,7 +179,6 @@ public class Details1Activity extends AppCompatActivity {
 
                             String content = (String) review_response_temp.get("content");
 
-                            System.out.println((int) review_response_temp.get("rating_here"));
                            int rating_here = (int) review_response_temp.get("rating_here");
                           int  rating = rating_here/2;
                             review_response.add(new reviewModal(username,created_at,content,rating));
@@ -183,6 +187,9 @@ public class Details1Activity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
+                    System.out.println("https://api.themoviedb.org/3/"+ type+"/"+id_here+"/reviews?api_key=fe840c68564be174ec52a012194057e7&language=en-US&page=1");
+                    System.out.println("http://localhost:8080/"+type+"/Movie_Review_List/"+id_here);
+
                     BinitRecyclerViewB(this,review_response);
 
                 }, error -> System.out.println(error));
@@ -201,7 +208,8 @@ public class Details1Activity extends AppCompatActivity {
                             String rec_poster = (String) reccom_temp.get("poster");
                             String rec_id = String.valueOf(reccom_temp.get("id"));
                             String rec_type = String.valueOf(reccom_temp.get("type"));
-                            recc_response.add(new CardModel(rec_poster,rec_id,rec_type));
+                            String name = (String) reccom_temp.get("title");
+                            recc_response.add(new CardModel(rec_poster,rec_id,rec_type,name));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -225,7 +233,6 @@ public class Details1Activity extends AppCompatActivity {
                 @Override
                 public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                     String videoId = videoid[0];
-                    System.out.println("youtube player entered");
                     youTubePlayer.cueVideo(videoId, 0); //loadVideo autoplays
 
                 }
@@ -248,8 +255,6 @@ public class Details1Activity extends AppCompatActivity {
                 {
                     String each_set = watchlistItems.get(i);
                     List<String> each_set_array = new ArrayList<>(Arrays.asList(each_set.split("@")));
-                    System.out.println("watchlist before error");
-                    System.out.println(each_set_array);
                     String id_set = each_set_array.get(0);
                     String type_set = each_set_array.get(1);
                     if (String.valueOf(id_here).equals(id_set) && type.equals(type_set)){
@@ -260,7 +265,7 @@ public class Details1Activity extends AppCompatActivity {
 
                 }
             }
-
+//FACEBOOK
         TextView fb = findViewById(R.id.facebook_button);
         fb.setOnClickListener(new View.OnClickListener(){
 
@@ -273,7 +278,7 @@ public class Details1Activity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+        //TWITTER
         TextView tweet = findViewById(R.id.twitter_button);
         tweet.setOnClickListener(new View.OnClickListener(){
 
@@ -286,7 +291,7 @@ public class Details1Activity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+//ON CLICK: Button adds or removes.
         CardView card_add_remove = findViewById(R.id.card_add_remove);
         card_add_remove.setOnClickListener(new View.OnClickListener(){
         String strJson = pref.getString("watchlistB","");
@@ -297,13 +302,11 @@ public class Details1Activity extends AppCompatActivity {
                 String string_id=String.valueOf(id_here);
                 Watchlist_add_remove x = new Watchlist_add_remove(getApplicationContext(),string_id ,type,poster ,temp_title[0]); //goes to class and adds/removes from watchlist.
 
-
+                x.item();//if below:cause errors.
                Boolean exists =  x.check_if_exists();
-                System.out.println("exists");
 
-                System.out.println(exists);
-                TextView add_button = findViewById(R.id.add_button);
-                TextView remove_button = findViewById(R.id.remove_button);
+               // TextView add_button = findViewById(R.id.add_button);
+              //  TextView remove_button = findViewById(R.id.remove_button);
 
                if(exists){
                    add_button.setVisibility(View.GONE);
@@ -313,12 +316,13 @@ public class Details1Activity extends AppCompatActivity {
                    add_button.setVisibility(View.VISIBLE);
                    remove_button.setVisibility(View.GONE);
                }
-                x.item();
+
 
             }
 
         });
     }
+//CAST RESPONSE
     private void initRecyclerView(Details1Activity details1Activity, ArrayList<model_cast> cast_response){
         Log.d(TAG,"initRecyclerView: init recyclerview");
         GridLayoutManager layoutManager3 = new GridLayoutManager(this,3,GridLayoutManager.VERTICAL,false);
@@ -327,6 +331,7 @@ public class Details1Activity extends AppCompatActivity {
         cast_Adapter adapter = new cast_Adapter(this,cast_response); //
         recyclerView3.setAdapter(adapter);//
     }
+//REVIEWS
     private void BinitRecyclerViewB(Details1Activity details1Activity, ArrayList<reviewModal> review_response){
         Log.d(TAG,"initRecyclerView: review recyclerview");
         LinearLayoutManager layoutManager4 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
@@ -335,7 +340,7 @@ public class Details1Activity extends AppCompatActivity {
         review_Adaptor adapterB = new review_Adaptor(this,review_response); //
         recyclerView4.setAdapter(adapterB);
     }
-
+//RECOMMENDED
     private void initRecyclerView_reviews(Details1Activity details1Activity, ArrayList<CardModel> recc_response){
         Log.d(TAG,"initRecyclerView: recc recyclerview");
         LinearLayoutManager layoutManager5 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
@@ -362,20 +367,15 @@ public class Details1Activity extends AppCompatActivity {
                 */
 /*
                 if(strJson==""||strJson==null){
-                    System.out.println("The watchlist is empty: first loop");
                     String new_cinema = id_here + "@" + type + "@" + poster;
                     editor.putString("watchlistB",new_cinema );
                     editor.apply();
                 }
                 else{
                     try {
-                       System.out.println("strJson");
-                       System.out.println(strJson);
                         List<String> watchlistItems = new ArrayList<>(Arrays.asList(strJson.split("####")));
                         boolean exists = false;
                         for(int i = 0; i<watchlistItems.size();i++){
-//                            System.out.println(watchlistItems.size());
-//                            System.out.println("entred for loop => not empty");
                             String each_set = watchlistItems.get(i);
                             List<String> each_set_array = new ArrayList<>(Arrays.asList(each_set.split("@")));
                             String id_set = each_set_array.get(0);
@@ -384,46 +384,27 @@ public class Details1Activity extends AppCompatActivity {
                             if (String.valueOf(id_here).equals(id_set) && type.equals(type_set)){
                                 String x = " was added to watchlist.";
                                 Toast.makeText(getApplicationContext(),(String)x ,Toast.LENGTH_LONG).show();
-                                System.out.println("to be removed");
-                                System.out.println(id_here);
-                                System.out.println(type);
-                                System.out.println("above this page, below equality");
-                                System.out.println(id_set);
-                                System.out.println(type_set);
                                 exists = true;
                                 watchlistItems.remove(i);
-                                System.out.println("watchlistItems array after removal below:");
-                                System.out.println(watchlistItems);
                                 String put_back_watchlist_after_removal;
                                 if(watchlistItems.size()==0){
                                     editor.putString("watchlistB","");
-                                    System.out.println("if empty list");
                                     editor.apply();
                                 }
                                 else{
-                                    System.out.println("else not  empty list");
                                     put_back_watchlist_after_removal = String.join("####", watchlistItems);
                                     editor.remove("watchlistB");
                                     editor.putString("watchlistB", put_back_watchlist_after_removal);
                                     editor.apply();
                                 }
                                 String strJson2 = pref.getString("watchlistB","");
-                                System.out.println("below after getting back string from watchlist to check ");
-                                System.out.println(strJson2);
 
                                 break;
                             }
                         }
                         if(!exists){
                             String new_cinema ="####"+ id_here + "@" + type + "@" + poster;
-                            System.out.println("new_cinema");
-                            System.out.println(new_cinema);
-                            System.out.println("BEFORE: strJson ");
-                            System.out.println(strJson);
                             strJson = strJson + new_cinema;
-                            System.out.println("added");
-                            System.out.println("AFTER: strJson");
-                            System.out.println(strJson);
                             editor.remove("watchlistB");
                             editor.putString("watchlistB", strJson);
                             editor.apply();

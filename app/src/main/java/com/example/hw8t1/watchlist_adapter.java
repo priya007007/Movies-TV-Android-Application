@@ -2,6 +2,7 @@ package com.example.hw8t1;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.ViewHolder> {
     private static final String TAG = "RecycleView WATCHLIST";
@@ -69,8 +72,30 @@ public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.Vi
                              context.getApplicationContext(),List_items_display.get(position).id ,List_items_display.get(position)
                              .type,List_items_display.get(position).img ,List_items_display.get(position).name); //goes to class and adds/removes from watchlist.
                      x.item();
-                     //notifyDataSetChanged();
-                    //  wf = new WatchlistFragment();
+                     List_items_display.clear();
+                     SharedPreferences pref = context.getSharedPreferences("MyPref", 0);
+                     SharedPreferences.Editor editor = pref.edit();
+                     String strJson = pref.getString("watchlistB","");
+                     if(strJson!=""){
+                         List<String> watchlistItems = new ArrayList<>(Arrays.asList(strJson.split("####")));
+                         for(int i = 0; i<watchlistItems.size();i++){
+                             String each_set = watchlistItems.get(i);
+                             List<String> each_set_array = new ArrayList<>(Arrays.asList(each_set.split("@")));
+                             String id_set = each_set_array.get(0);
+                             String type_set = each_set_array.get(1);
+                             String poster_set = each_set_array.get(2);
+                             String name_set = each_set_array.get(3);
+                             List_items_display.add(new watchlist_model(id_set,type_set,poster_set,name_set));
+                         }
+                     }
+                     else{
+                         List_items_display.clear();
+                        // final TextView set_nothing_visible = view.getContext().findViewById(R.id.watchlistEmptyID);
+                         //set_nothing_visible.setText("Nothing added to watchlist");
+
+                     }
+
+                     notifyDataSetChanged();
 
 
                  }
@@ -89,6 +114,7 @@ public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.Vi
          CardView card_view;
          TextView textView;
          TextView rem;
+         TextView empty_string;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,6 +122,7 @@ public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.Vi
             card_view = itemView.findViewById(R.id.card_s);
             textView = itemView.findViewById(R.id.type_movie_tv);
             rem = itemView.findViewById(R.id.remove_from_watchlist);
+            empty_string = itemView.findViewById (R.id.watchlistEmptyID);
         }
     }
 

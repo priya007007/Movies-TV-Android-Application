@@ -30,8 +30,9 @@
                 android:textStyle="bold" />
 
             <TextView
+                app:drawableEndCompat="@drawable/ic_baseline_star_rate_24"
                 android:id="@+id/id2"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/id1"
                 android:textColor="#FFFFFF"

@@ -36,7 +36,7 @@ public class review_Adaptor extends  RecyclerView.Adapter<review_Adaptor.ViewHol
         String temp_line1 = " by "+ Review_list_display.get(position).username +" on "+ Review_list_display.get(position).created_at;
         holder.textView1.setText(temp_line1);
 
-        String temp_line2 = Review_list_display.get(position).rating +"/5 STAR" ;
+        String temp_line2 = Review_list_display.get(position).rating +"/5 " ;
         holder.textView2.setText(temp_line2);
 
         holder.textView3.setText(Review_list_display.get(position).content);

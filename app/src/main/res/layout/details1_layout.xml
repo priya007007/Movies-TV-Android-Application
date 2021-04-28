@@ -80,7 +80,8 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:trimLength="190"
-        app:trimMode="trimModeLength" />
+        app:trimMode="trimModeLength"
+        app:colorClickableText="#aaaaaa"/>
 
     <TextView
         android:id="@+id/textView5"

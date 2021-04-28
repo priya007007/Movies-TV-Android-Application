@@ -9,25 +9,45 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        >
-    <RelativeLayout
-        android:id="@+id/rel_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:minHeight="?attr/actionBarSize" >
+<!--        android:theme="?attr/actionBarTheme"-->
 
 
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/rel_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        >-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/search_image"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="60dp"-->
+<!--            app:drawableStartCompat="@drawable/ic_baseline_search_24"-->
+<!--        android:layout_alignStart="@+id/search_image"-->
+<!--            />-->
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
 
-            android:layout_width="351dp"
+            android:theme="@style/SearchViewStyle"
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:textColorHint="#E3E3EA" />
-    </RelativeLayout>
+            />
+
+<!--    </RelativeLayout>-->
 
 
 </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/no_results"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:gravity="center"
+        android:text="No results found"
+        android:textColor="#FFFFFF" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginLeft="10dp"
@@ -38,3 +58,4 @@
         android:layout_below="@+id/toolbar"
         android:orientation="vertical"/>
 </RelativeLayout>
+    <!--            android:paddingStart="20dp"-->

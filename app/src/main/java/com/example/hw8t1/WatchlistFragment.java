@@ -47,7 +47,6 @@ public class WatchlistFragment extends Fragment  {
             set_nothing_visible.setText("");
 
             List<String> watchlistItems = new ArrayList<>(Arrays.asList(watch_display.split("####")));
-//            ArrayList<watchlist_model> arrays_to_display = new ArrayList<watchlist_model>();
             for(int i = 0; i<watchlistItems.size();i++){
                 String each_set = watchlistItems.get(i);
                 List<String> each_set_array = new ArrayList<>(Arrays.asList(each_set.split("@")));
@@ -80,9 +79,7 @@ public class WatchlistFragment extends Fragment  {
     }
 
 
-//public void refresh_watchlist(){
-//    FragmentTransaction ft = getFragmentManager().beginTransaction();
-//    ft.detach(this).attach(this).commit();}
+
 
     ItemTouchHelper.SimpleCallback simpleCallback =  new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN|ItemTouchHelper.START|ItemTouchHelper.END|ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT,0) {
         @Override //2 argument directions and for method swipe we not use

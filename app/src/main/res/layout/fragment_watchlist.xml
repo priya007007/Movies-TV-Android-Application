@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@android:color/holo_green_light"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EB161C1C"
     android:id="@+id/relativeLayoutWatch">
 
 
@@ -10,11 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Nothing added to watchlist" />
+        android:text="Nothing added to watchlist"
+        android:textColor="#FFFFFF" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/watchlist_recycler_view" />
+        android:id="@+id/watchlist_recycler_view"
+        android:layout_margin="10dp"/>
 
 </RelativeLayout>

@@ -2,15 +2,16 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_200">
+   >
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#1E1C1C">
+        android:background="#EB161C1C">
 
 
         <TextView
@@ -18,20 +19,21 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
-            android:drawableStart="@drawable/ic_theaters_white_18dp"
             android:text="@string/uscFilms"
             android:textColor="#FFFFFF"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            app:drawableStartCompat="@drawable/ic_theaters_white_18dp" />
 
         <Button
             android:id="@+id/movies_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginEnd="-16dp"
+            android:layout_marginEnd="-1dp"
             android:layout_toStartOf="@id/tv_button"
             android:background="@android:color/darker_gray"
 
             android:text="Movies"
+            android:textColor="#FFFFFF"
             app:backgroundTint="#1E1C1C"
             app:iconPadding="0dp" />
 
@@ -42,31 +44,158 @@
             android:layout_alignParentRight="true"
             android:background="@android:color/darker_gray"
             android:text="TV Shows"
+            android:textColor="#FFFFFF"
             app:backgroundTint="#1E1C1C"
             app:iconPadding="0dp" />
     </RelativeLayout>
 
 
-
+    <ScrollView xmlns:tools="http://schemas.android.com/tools"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:id="@+id/scrollViewtv">
     <RelativeLayout
         android:id="@+id/tv_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/relativeLayout1"
-        android:background="@color/blueIcon">
+        android:layout_height="wrap_content"
+        android:background="#EB161C1C">
+        <com.smarteist.autoimageslider.SliderView
 
+
+
+
+            android:id="@+id/tv_slider_xml"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_margin="3dp"
+            app:sliderIndicatorOrientation="horizontal"
+            app:sliderIndicatorPadding="3dp"
+            app:sliderIndicatorRadius="1dp"
+            app:sliderIndicatorSelectedColor="#00009D"
+            app:sliderIndicatorUnselectedColor="#FFF"
+            app:sliderIndicatorMargin="15dp"
+            android:paddingTop="15dp"
+            app:sliderIndicatorGravity="center_horizontal|bottom"
+
+
+            />
+<!--        <com.smarteist.autoimageslider.SliderView-->
+<!--            android:id="@+id/tv_slider_xml"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="450dp"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            app:sliderAnimationDuration="600"-->
+<!--            app:sliderAutoCycleDirection="right"-->
+<!--            app:sliderIndicatorAnimationDuration="600"-->
+<!--            app:sliderIndicatorEnabled="true"-->
+<!--            app:sliderIndicatorGravity="center_horizontal|bottom"-->
+<!--            android:paddingTop="5dp"-->
+<!--            app:sliderIndicatorMargin="15dp"-->
+<!--            app:sliderIndicatorOrientation="horizontal"-->
+<!--            app:sliderIndicatorPadding="3dp"-->
+<!--            app:sliderIndicatorRadius="1dp"-->
+<!--            app:sliderIndicatorSelectedColor="@color/colorPrimary"-->
+<!--            app:sliderIndicatorUnselectedColor="#FFF"-->
+<!--            app:sliderScrollTimeInSec="1" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recylerViewtvTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/tv_slider_xml"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recylerViewTVPopular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/recylerViewtvTop"
+            />
     </RelativeLayout>
+    </ScrollView>
+
+
+    <ScrollView
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:id="@+id/scrollViewmovie">
     <RelativeLayout
         android:id="@+id/movies_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/relativeLayout1"
-        android:background="@color/teal_700">
-<!--RECYLE-->
+        android:layout_height="wrap_content"
+        android:background="#EB161C1C">
+
+        <com.smarteist.autoimageslider.SliderView
+            android:id="@+id/movie_slider_xml"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_margin="10dp"
+            app:sliderIndicatorOrientation="horizontal"
+            app:sliderIndicatorPadding="3dp"
+            app:sliderIndicatorRadius="1dp"
+            app:sliderIndicatorSelectedColor="#00009D"
+            app:sliderIndicatorUnselectedColor="#FFF"
+           />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recylerView1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/movie_slider_xml"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recylerView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/recylerView1"
+            />
+
+        <TextView
+            android:id="@+id/tmdbwebsite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recylerView2"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/messageWithLink"
+            android:textColor="#FFFFFF"
+            android:textColorLink="#0000ff"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tmdbwebsite"
+            android:gravity="center"
+            android:text="Developed by Rengapriya"
+            android:textColor="#0000ff"
+            android:textSize="18sp" />
     </RelativeLayout>
+    </ScrollView>
+
+
+
 </RelativeLayout>
+
+    <!--            app:sliderIndicatorGravity="center_horizontal|bottom"-->
+
+
+<!--    android:id="@+id/tv_slider_xml"-->
+<!--    android:scaleType="fitXY"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="400dp"-->
+<!--    android:layout_margin="10dp"-->
+<!--    app:sliderIndicatorOrientation="horizontal"-->
+<!--    app:sliderIndicatorPaddingTop="3dp"-->
+<!--    app:sliderIndicatorRadius="1dp"-->
+
+<!--    app:sliderIndicatorSelectedColor="#00009D"-->
+<!--    app:sliderIndicatorUnselectedColor="#FFF"-->

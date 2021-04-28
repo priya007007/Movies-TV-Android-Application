@@ -1,4 +1,12 @@
 <resources>
-    <string name="app_name">hw8t1</string>
+    <string name="app_name">USC Films</string>
     <string name="uscFilms">USC Films</string>
+    <string name="search_hint">Search Movies and TV</string>
+    <string name="messageWithLink"><a href="https://www.themoviedb.org/">Powered by TMDB</a></string>
+    <string name="title_activity_splashscreen1">Splashscreen1</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 </resources>

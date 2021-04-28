@@ -1,65 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:id="@+id/scrollView"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".Activity_Reviews"
-    android:background="#EB161C1C"
-    android:padding="2dp"
-    >
+    android:fillViewport="true">
 
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:id="@+id/cardviewA"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        android:background="#EB161C1C"-->
-<!--        app:cardBackgroundColor="#EB161C1C"-->
-<!--        app:cardCornerRadius="4dp"-->
-<!--        app:cardElevation="16dp"-->
-<!--        app:cardMaxElevation="10dp"-->
-<!--        android:layout_margin="20dp">-->
-
-        <!--        <RelativeLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:background="#EB161C1C" >-->
-        <TextView
-            android:id="@+id/idA"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="#EB161C1C"
+            android:padding="10dp"
+            tools:context=".Activity_Reviews">
 
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+                <!--    <androidx.cardview.widget.CardView-->
+                <!--        android:id="@+id/cardviewA"-->
+                <!--        android:layout_width="match_parent"-->
+                <!--        android:layout_height="match_parent"-->
+                <!--        android:layout_centerInParent="true"-->
+                <!--        android:background="#EB161C1C"-->
+                <!--        app:cardBackgroundColor="#EB161C1C"-->
+                <!--        app:cardCornerRadius="4dp"-->
+                <!--        app:cardElevation="16dp"-->
+                <!--        app:cardMaxElevation="10dp"-->
+                <!--        android:layout_margin="20dp">-->
 
-        <TextView
-            android:id="@+id/idB"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/idA"
-            android:textColor="#2196F3"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+                <!--        <RelativeLayout-->
+                <!--            android:layout_width="match_parent"-->
+                <!--            android:layout_height="match_parent"-->
+                <!--            android:background="#EB161C1C" >-->
+                <TextView
+                    android:id="@+id/idA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+
+                    android:textSize="18sp"
+                    app:drawableEndCompat="@drawable/ic_baseline_star_rate_24" />
+
+                <TextView
+                    android:id="@+id/idB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/idA"
+                    android:textColor="#2196F3"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
 
-        <TextView
-            android:id="@+id/idC"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/idB"
+                <TextView
+                    android:id="@+id/idC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/idB"
 
 
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
 
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
-
-        <!--        </RelativeLayout>-->
-<!--    </androidx.cardview.widget.CardView>-->
-</RelativeLayout>
+                <!--        </RelativeLayout>-->
+                <!--    </androidx.cardview.widget.CardView>-->
+        </RelativeLayout>
 </ScrollView>

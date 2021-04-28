@@ -18,7 +18,7 @@ public class Activity_Reviews extends AppCompatActivity {
         String created_at = b.getString("created_at");
         String content = b.getString("content");
 
-        String line2_string = rating +"/5 STAR" ;
+        String line2_string = rating +"/5 " ;
         TextView line2 = findViewById(R.id.idA);
         line2.setText(line2_string);
 
