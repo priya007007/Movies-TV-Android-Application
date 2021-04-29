@@ -187,7 +187,7 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
     }
 
         if(!p){
-           //holder.imageView.setForeground();
+           holder.imageView.setForeground(null);
         }
     }
     @Override

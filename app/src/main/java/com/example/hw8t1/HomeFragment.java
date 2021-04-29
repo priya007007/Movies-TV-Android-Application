@@ -80,13 +80,15 @@ public class HomeFragment extends Fragment {
                     sliderView.setSliderAdapter(adapter);
                     sliderView.setScrollTimeInSec(6);
                     sliderView.setAutoCycle(true);
-                    sliderView.startAutoCycle();//show
+                    sliderView.startAutoCycle();//show because all data retrieved.
+
+
 
 
                 }, error -> System.out.println(error));
 
 
-        queue.add(movies_slider_request);
+
 
 //ENDPOINT: tvNowPlaying
         String url_tv_slider ="http://10.0.2.2:8080/tvNowPlaying_android";//TV SLIDER
@@ -114,12 +116,12 @@ public class HomeFragment extends Fragment {
                     sliderView2.setScrollTimeInSec(6);
                     sliderView2.setAutoCycle(true);
                     sliderView2.startAutoCycle();
-
+                    queue.add(movies_slider_request);//nest
 
                 }, error -> System.out.println(error));
 
 
-        queue.add(tv_slider_request) ;
+
 //ENDPOINT: PopularMovies
         String url ="http://10.0.2.2:8080/PopularMovies_android";
         String tag;
@@ -140,10 +142,11 @@ public class HomeFragment extends Fragment {
                         }
                     }
                     initRecyclerView(v,response_new);
+                    queue.add(tv_slider_request) ;//nest
                 }, error -> System.out.println(error));
 
 
-        queue.add(stringRequest);
+
 
 //ENDPOINT: TopRatedMovies
         String url_top_movies ="http://10.0.2.2:8080/TopRatedMovies_android";
@@ -165,10 +168,11 @@ public class HomeFragment extends Fragment {
                         }
                     }
                     initRecyclerView_Top_Rated_Movies(v,response_top_movies);
+                    queue.add(stringRequest);//nest
                 }, error -> System.out.println(error));
 
 
-        queue.add(stringRequest_top_movies) ;
+
 
 
 //ENDPOINT: TopRatedTV
@@ -190,6 +194,7 @@ public class HomeFragment extends Fragment {
                         }
                     }
                     init_Top_Rated_TV(v,response_top_tv);
+                    queue.add(stringRequest_top_movies) ;//nest
                 }, error -> System.out.println(error));
 
 
@@ -213,22 +218,29 @@ public class HomeFragment extends Fragment {
                         }
                     }
                     init_Popular_TV(v,response_popular_tv);
-                    queue.add(stringRequest_top_tv) ;
+                    queue.add(stringRequest_top_tv) ;//nest
                 }, error -> System.out.println(error));
         queue.add(stringRequest_popular_tv);
 
 //TAB SWAP: movie and tv
         final Button button_movie = v.findViewById(R.id.movies_button);
         final Button button_tv = v.findViewById(R.id.tv_button);
+
+
+
         View  rel_movie = v.findViewById(R.id.scrollViewmovie);
         View  rel_tv = v.findViewById(R.id.scrollViewtv);
-        button_movie.setTextColor(getResources().getColor(R.color.blueIcon));
+
+        rel_tv.setVisibility(View.GONE);
+
+        button_tv.setTextColor(getResources().getColor(R.color.bottom_nav_blue));
+        button_movie.setTextColor(getResources().getColor(R.color.white)); //on startup
         button_movie.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 rel_movie.setVisibility(View.VISIBLE);
                 rel_tv.setVisibility(View.GONE);
-                button_movie.setTextColor(getResources().getColor(R.color.blueIcon));
-                button_tv.setTextColor(getResources().getColor(R.color.white));
+                button_movie.setTextColor(getResources().getColor(R.color.white));
+                button_tv.setTextColor(getResources().getColor(R.color.bottom_nav_blue));
 
             }
         });
@@ -236,8 +248,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 rel_tv.setVisibility(View.VISIBLE);
                 rel_movie.setVisibility(View.GONE);
-                button_tv.setTextColor(getResources().getColor(R.color.blueIcon));
-                button_movie.setTextColor(getResources().getColor(R.color.white));
+                button_tv.setTextColor(getResources().getColor(R.color.white));
+                button_movie.setTextColor(getResources().getColor(R.color.bottom_nav_blue));
 
             }
         });

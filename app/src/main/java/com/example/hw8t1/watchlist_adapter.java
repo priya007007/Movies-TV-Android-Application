@@ -27,9 +27,12 @@ public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.Vi
     private static final String TAG = "RecycleView WATCHLIST";
     private ArrayList<watchlist_model> List_items_display  = new ArrayList<>();
      private final Context context;
-    public watchlist_adapter(Context context, ArrayList<watchlist_model> list_items_display) {
+     String em = "empty string!!";
+    WatchlistFragment f;
+    public watchlist_adapter(Context context, ArrayList<watchlist_model> list_items_display,WatchlistFragment f) {
          this.context = context;
          List_items_display = list_items_display;
+         this.f=f;
      }
 //     String h = "";
 //    public watchlist_adapter(Context context, String j) {
@@ -91,7 +94,10 @@ public class watchlist_adapter extends RecyclerView.Adapter<watchlist_adapter.Vi
                      else{
                          List_items_display.clear();
                         // final TextView set_nothing_visible = view.getContext().findViewById(R.id.watchlistEmptyID);
-                         //set_nothing_visible.setText("Nothing added to watchlist");
+                         //set_nothing_visible.setText();
+                         //   holder.empty_string.setText(em);//access parent xml error: cannot access
+                       // ((WatchlistFragment)view.getContext()).findViewById(R.id.watchlistEmptyID);
+                         f.setEmpty();
 
                      }
 

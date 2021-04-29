@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -50,7 +51,7 @@
     </RelativeLayout>
 
 
-    <ScrollView xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_below="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -70,8 +71,8 @@
             android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:layout_margin="3dp"
             app:sliderIndicatorOrientation="horizontal"
+            android:layout_margin="10dp"
             app:sliderIndicatorPadding="3dp"
             app:sliderIndicatorRadius="1dp"
             app:sliderIndicatorSelectedColor="#00009D"
@@ -100,21 +101,60 @@
 <!--            app:sliderIndicatorSelectedColor="@color/colorPrimary"-->
 <!--            app:sliderIndicatorUnselectedColor="#FFF"-->
 <!--            app:sliderScrollTimeInSec="1" />-->
-
+        <TextView
+            android:id="@+id/Top_Tv_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_slider_xml"
+            android:text="Top-Rated"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recylerViewtvTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@+id/tv_slider_xml"
+            android:layout_below="@+id/Top_Tv_word"
             />
+
+        <TextView
+            android:id="@+id/popular_Tv_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recylerViewtvTop"
+            android:text="Popular"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recylerViewTVPopular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@+id/recylerViewtvTop"
+            android:layout_below="@+id/popular_Tv_word"
             />
+
+        <TextView
+            android:id="@+id/tmdbwebsiteTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recylerViewTVPopular"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/messageWithLink"
+            android:textColor="#FFFFFF"
+            android:textColorLink="#1F85DE"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tmdbwebsiteTV"
+            android:gravity="center"
+            android:text="Developed by Rengapriya"
+            android:textColor="#1F85DE"
+            android:textSize="18sp" />
     </RelativeLayout>
     </ScrollView>
 
@@ -142,20 +182,43 @@
             app:sliderIndicatorRadius="1dp"
             app:sliderIndicatorSelectedColor="#00009D"
             app:sliderIndicatorUnselectedColor="#FFF"
-           />
+            app:sliderIndicatorGravity="center_horizontal|bottom"
+            app:sliderIndicatorMargin="5dp"
+
+            />
+
+        <TextView
+            android:id="@+id/Top_movie_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/movie_slider_xml"
+            android:text="Top-Rated"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recylerView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@+id/movie_slider_xml"
+            android:layout_below="@+id/Top_movie_word"
             />
+
+        <TextView
+            android:id="@+id/popular_movie_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recylerView1"
+            android:text="Popular"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recylerView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@+id/recylerView1"
+            android:layout_below="@+id/popular_movie_word"
             />
 
         <TextView
@@ -166,8 +229,8 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="@string/messageWithLink"
-            android:textColor="#FFFFFF"
-            android:textColorLink="#0000ff"
+            android:textColor="#1F85DE"
+            android:textColorLink="#1F85DE"
             android:textSize="18sp" />
 
         <TextView
@@ -176,7 +239,7 @@
             android:layout_below="@+id/tmdbwebsite"
             android:gravity="center"
             android:text="Developed by Rengapriya"
-            android:textColor="#0000ff"
+            android:textColor="#1F85DE"
             android:textSize="18sp" />
     </RelativeLayout>
     </ScrollView>
@@ -199,3 +262,12 @@
 
 <!--    app:sliderIndicatorSelectedColor="#00009D"-->
 <!--    app:sliderIndicatorUnselectedColor="#FFF"-->
+
+<!--<RelativeLayout-->
+<!--<RelativeLayout-->
+<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--    >-->
+
+<!--</RelativeLayout>-->
