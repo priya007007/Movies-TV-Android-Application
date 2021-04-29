@@ -59,7 +59,7 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 RequestQueue queue = Volley.newRequestQueue(v.getContext());//
-                String url_search= "http://10.0.2.2:8080/search/"+query;
+                String url_search= "https://hw8gcptrialco.wl.r.appspot.com/search/"+query;
                 JsonArrayRequest search_string_request = new JsonArrayRequest(Request.Method.GET, url_search, null,
                         response ->
                         {search_add.clear();
@@ -95,7 +95,7 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 RequestQueue queue = Volley.newRequestQueue(v.getContext());//
-                String url_search= "http://10.0.2.2:8080/search/"+newText;
+                String url_search= "https://hw8gcptrialco.wl.r.appspot.com/search/"+newText;
                 JsonArrayRequest search_string_request = new JsonArrayRequest(Request.Method.GET, url_search, null,
                         response ->
                         { search_add.clear();

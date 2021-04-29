@@ -16,6 +16,25 @@
         <item name="android:textColorHint">@color/white</item>
 
     </style>
+
+
+    <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Gets rid of the search icon -->
+        <!--        <item name="searchIcon">@null</item>-->
+        <!-- Gets rid of the "underline" in the text -->
+        <!-- Gets rid of the search icon when the SearchView is expanded -->
+        <!-- The hint text that appears when the user has not typed anything -->
+        <!--        <item name="searchHintIcon"></item>-->
+        <!--<item name="queryBackground">@color/white</item>-->
+
+        <!--        <item name="queryHint">@string/search_hint</item>-->
+        <item name="android:windowBackground">@drawable/start_background</item>
+        <item name="colorPrimary">@color/background_app</item>
+        <item name="colorPrimaryVariant">@color/background_app</item>
+
+    </style>
+
+
 </resources>
 
 

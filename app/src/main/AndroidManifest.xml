@@ -30,7 +30,8 @@
         -->
         <meta-data
             android:name="com.google.android.wearable.standalone"
-            android:value="false" /> <!-- <activity -->
+            android:value="false" />
+        <!-- <activity -->
         <!-- android:label="@string/title_activity_splashscreen1" -->
         <!-- android:name=".Splashscreen1"> -->
         <!-- &lt;!&ndash;         <intent-filter>&ndash;&gt; -->
@@ -38,15 +39,27 @@
         <!-- &lt;!&ndash;         <category android:name="android.intent.category.LAUNCHER" />&ndash;&gt; -->
         <!-- &lt;!&ndash;         </intent-filter>&ndash;&gt; -->
         <!-- </activity> -->
+
+        <activity android:name=".app_start_splash"
+            android:theme="@style/SplashTheme">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER " />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".Activity_Reviews" />
         <activity android:name=".Details1Activity" />
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT " />
             </intent-filter>
         </activity>
     </application>

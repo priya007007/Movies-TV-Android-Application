@@ -1,11 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<RelativeLayout
+    android:background="#EB161C1C"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
+    android:id="@+id/loads"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progressBar1"
+        android:text="@string/loading"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="18sp">
+
+    </TextView>
+</RelativeLayout>
+
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/home_load_done"
    >
 
     <RelativeLayout
@@ -241,11 +271,14 @@
             android:text="Developed by Rengapriya"
             android:textColor="#1F85DE"
             android:textSize="18sp" />
+
     </RelativeLayout>
+
+
     </ScrollView>
 
 
-
+</RelativeLayout>
 </RelativeLayout>
 
     <!--            app:sliderIndicatorGravity="center_horizontal|bottom"-->

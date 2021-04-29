@@ -92,28 +92,28 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
 
             @Override
             public void onClick(View v) {
-                RequestQueue queue = Volley.newRequestQueue(v.getContext());
-                String url_details_imdb = "http://10.0.2.2:8080/"+(ImageUrls.get(position).type)+"/MovieDetails/"+(ImageUrls.get(position).id);
-                StringRequest stringRequestdetails = new StringRequest(Request.Method.GET, url_details_imdb,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                try {
-                                    JSONObject details_list_imdb = new JSONObject(response);
-                                    imdb[0] = details_list_imdb.getString("imdb");
-                                //     title[0] = details_list_imdb.getString("title");
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        System.out.println("didn't work for volley imdb");
-                    }
-                });
-                queue.add(stringRequestdetails);
+//                RequestQueue queue = Volley.newRequestQueue(v.getContext());
+//                String url_details_imdb = "http://10.0.2.2:8080/"+(ImageUrls.get(position).type)+"/MovieDetails/"+(ImageUrls.get(position).id);
+//                StringRequest stringRequestdetails = new StringRequest(Request.Method.GET, url_details_imdb,
+//                        new Response.Listener<String>() {
+//                            @Override
+//                            public void onResponse(String response) {
+//                                try {
+//                                    JSONObject details_list_imdb = new JSONObject(response);
+//                                    imdb[0] = details_list_imdb.getString("imdb");
+//                                //     title[0] = details_list_imdb.getString("title");
+//
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        }, new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        System.out.println("didn't work for volley imdb");
+//                    }
+//                });
+//                queue.add(stringRequestdetails);
                 ///////////////////////
 //                String url ="http://10.0.2.2:8080/"+(ImageUrls.get(position).type)+"/moviesVideo/"+(ImageUrls.get(position).id);
 //                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -153,18 +153,18 @@ public class RecyclerViewAdaptor extends   RecyclerView.Adapter<RecyclerViewAdap
                         switch (item.getItemId()){
                             case R.id.tdmb_dots:
 
-                                String url1 = "https://www.imdb.com/title/" +imdb[0];
+                                String url1 = "https://www.themoviedb.org/"+ ImageUrls.get(position).type+"/"+ImageUrls.get(position).id;
                                 mcontext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url1)));
                                 return true;
                             case R.id.fb_dots:
-                                String url1a = "https://www.imdb.com/title/" +imdb[0];
+                                String url1a = "https://www.themoviedb.org/"+ ImageUrls.get(position).type+"/"+ImageUrls.get(position).id;
                                 String url2 = "https://www.facebook.com/sharer/sharer.php?u=" + url1a;
                                 mcontext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url2)));
                                 return true;
                             case R.id.twitter_dots:
 
                                 System.out.println("part c works");
-                                String url1b = "https://www.imdb.com/title/" +imdb[0];
+                                String url1b = "https://www.themoviedb.org/"+ ImageUrls.get(position).type+"/"+ImageUrls.get(position).id;
                                 String url3 = "https://twitter.com/intent/tweet?text=Check%20this%20out!%20" + url1b ;
                                 mcontext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url3)));
                                 return true;

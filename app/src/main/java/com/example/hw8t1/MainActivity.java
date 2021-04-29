@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
  Fragment Home,Search,Watchlist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        System.out.println("onCreate main works");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_hw9);
@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     @Override //overide onreusme
     protected void onResume() {
         super.onResume();
-        System.out.println("onResume works");
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {

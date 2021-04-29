@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+    <item android:drawable="@color/background_app" />
 
-</selector>
+    <item
+       >
+        <bitmap
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:src="@drawable/ic_theaters_white_18dp" />
+    </item>
+
+</layer-list>

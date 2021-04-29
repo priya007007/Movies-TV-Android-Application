@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,11 +45,14 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        
-        
+
         System.out.println("Called - goes to home fragment");
         View v =inflater.inflate(R.layout.fragment_home,container,false);
+        RelativeLayout r = v.findViewById( R.id.home_load_done);
+        RelativeLayout loading = v.findViewById( R.id.loads);
 
+        r.setVisibility(v.GONE);
+        loading.setVisibility(v.VISIBLE);
 
         TextView textView = v.findViewById(R.id.tmdbwebsite);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -56,7 +60,7 @@ public class HomeFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
 //ENDPOINT: movieNowPlaying
-        String url_movies_slider ="http://10.0.2.2:8080/movieNowPlaying_android"; //MOVIES SLIDER
+        String url_movies_slider ="https://hw8gcptrialco.wl.r.appspot.com/movieNowPlaying_android"; //MOVIES SLIDER
         ArrayList<CardModel> movies_slider_arraylist = new ArrayList<CardModel>();
         JsonObjectRequest movies_slider_request = new JsonObjectRequest(Request.Method.GET, url_movies_slider, null,
                 response ->
@@ -82,7 +86,8 @@ public class HomeFragment extends Fragment {
                     sliderView.setAutoCycle(true);
                     sliderView.startAutoCycle();//show because all data retrieved.
 
-
+                    r.setVisibility(v.VISIBLE);
+                    loading.setVisibility(v.GONE);
 
 
                 }, error -> System.out.println(error));
@@ -91,7 +96,7 @@ public class HomeFragment extends Fragment {
 
 
 //ENDPOINT: tvNowPlaying
-        String url_tv_slider ="http://10.0.2.2:8080/tvNowPlaying_android";//TV SLIDER
+        String url_tv_slider ="https://hw8gcptrialco.wl.r.appspot.com/tvNowPlaying_android";//TV SLIDER
         ArrayList<CardModel> tv_slider_arraylist = new ArrayList<CardModel>();
         JsonObjectRequest tv_slider_request = new JsonObjectRequest(Request.Method.GET, url_tv_slider, null,
                 response ->
@@ -123,7 +128,7 @@ public class HomeFragment extends Fragment {
 
 
 //ENDPOINT: PopularMovies
-        String url ="http://10.0.2.2:8080/PopularMovies_android";
+        String url ="https://hw8gcptrialco.wl.r.appspot.com/PopularMovies_android";
         String tag;
         Object msg;
        ArrayList<CardModel> response_new = new ArrayList<CardModel>();
@@ -149,7 +154,7 @@ public class HomeFragment extends Fragment {
 
 
 //ENDPOINT: TopRatedMovies
-        String url_top_movies ="http://10.0.2.2:8080/TopRatedMovies_android";
+        String url_top_movies ="https://hw8gcptrialco.wl.r.appspot.com/TopRatedMovies_android";
         ArrayList<CardModel> response_top_movies = new ArrayList<CardModel>();
         JsonObjectRequest stringRequest_top_movies = new JsonObjectRequest(Request.Method.GET, url_top_movies, null,
                 response ->
@@ -176,7 +181,7 @@ public class HomeFragment extends Fragment {
 
 
 //ENDPOINT: TopRatedTV
-        String url_top_tv ="http://10.0.2.2:8080/TopRatedTV_android";
+        String url_top_tv ="https://hw8gcptrialco.wl.r.appspot.com/TopRatedTV_android";
         ArrayList<CardModel> response_top_tv = new ArrayList<CardModel>();
         JsonObjectRequest stringRequest_top_tv = new JsonObjectRequest(Request.Method.GET, url_top_tv, null,
                 response ->
@@ -200,7 +205,7 @@ public class HomeFragment extends Fragment {
 
 
 //ENDPOINT: POPULAR TV
-        String url_popular_tv ="http://10.0.2.2:8080/PopularTV_android";
+        String url_popular_tv ="https://hw8gcptrialco.wl.r.appspot.com/PopularTV_android";
         ArrayList<CardModel> response_popular_tv = new ArrayList<CardModel>();
         JsonObjectRequest stringRequest_popular_tv = new JsonObjectRequest(Request.Method.GET, url_popular_tv, null,
                 response ->

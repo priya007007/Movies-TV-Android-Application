@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,13 +56,20 @@ public class Details1Activity extends AppCompatActivity {
 
 
 
+       // RelativeLayout r = findViewById(R.id.loads_done);
+       // RelativeLayout loading = findViewById( R.id.loads);
+
+     //  r.setVisibility(View.GONE);
+      //  loading.setVisibility(View.VISIBLE);
+
+
         Bundle b = getIntent().getExtras();
         int id_here = b.getInt("id");
         String type = b.getString("type");
         String poster = b.getString("poster_path");
 
         Log.e(String.valueOf(id_here),"id of selected");
-        String url ="http://10.0.2.2:8080/"+type+"/moviesVideo/"+id_here;
+        String url ="https://hw8gcptrialco.wl.r.appspot.com/"+type+"/moviesVideo/"+id_here;
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -86,10 +94,10 @@ public class Details1Activity extends AppCompatActivity {
                 System.out.println(" didn't work for volley video!");
             }
         });
+
         queue.add(stringRequest);
 
-
-        String url_details = "http://10.0.2.2:8080/"+type+"/MovieDetails/"+id_here;
+        String url_details = "https://hw8gcptrialco.wl.r.appspot.com/"+type+"/MovieDetails/"+id_here;
         StringRequest stringRequestdetails = new StringRequest(Request.Method.GET, url_details,
                 new Response.Listener<String>() {
                     @Override
@@ -119,19 +127,25 @@ public class Details1Activity extends AppCompatActivity {
                             TextView year_view = findViewById(R.id.textView8);
                             year_view.setText(year);
 
+
+                   //         r.setVisibility(View.VISIBLE);
+                     //       loading.setVisibility(View.GONE);
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
+
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 System.out.println("That didn't work for volley details!");
             }
         });
-        queue.add(stringRequestdetails);
 
-        String url_cast = "http://10.0.2.2:8080/"+type+"/Android_Movie_Cast_Details/"+id_here;
+
+        String url_cast = "https://hw8gcptrialco.wl.r.appspot.com/"+type+"/Android_Movie_Cast_Details/"+id_here;
         ArrayList<model_cast> cast_response = new ArrayList<model_cast>();
         JsonArrayRequest string_req_cast = new JsonArrayRequest (Request.Method.GET, url_cast,null,
 
@@ -149,11 +163,11 @@ public class Details1Activity extends AppCompatActivity {
                         }
                     }
                     initRecyclerView(this,cast_response);
-
+                    queue.add(stringRequestdetails);//nest
                 }, error -> System.out.println(error));
-        queue.add(string_req_cast);
 
-        String url_review = "http://10.0.2.2:8080/"+type+"/Movie_Review_List/"+id_here;
+
+        String url_review = "https://hw8gcptrialco.wl.r.appspot.com/"+type+"/Movie_Review_List/"+id_here;
         ArrayList<reviewModal> review_response = new ArrayList<reviewModal>();
         JsonArrayRequest string_req_review = new JsonArrayRequest (Request.Method.GET, url_review,null,
 
@@ -191,12 +205,13 @@ public class Details1Activity extends AppCompatActivity {
                     System.out.println("http://localhost:8080/"+type+"/Movie_Review_List/"+id_here);
 
                     BinitRecyclerViewB(this,review_response);
+                    queue.add(string_req_cast); //nest
 
                 }, error -> System.out.println(error));
 
-        queue.add(string_req_review);
 
-        String url_recommended = "http://10.0.2.2:8080/"+type+"/Recommended_Movies/"+id_here;
+
+        String url_recommended = "https://hw8gcptrialco.wl.r.appspot.com/"+type+"/Recommended_Movies/"+id_here;
         ArrayList<CardModel> recc_response = new ArrayList<CardModel>();
         JsonArrayRequest string_req_recommended = new JsonArrayRequest (Request.Method.GET, url_recommended,null,
 
@@ -216,7 +231,7 @@ public class Details1Activity extends AppCompatActivity {
                         }
                     }
                     initRecyclerView_reviews(this,recc_response);
-
+                    queue.add(string_req_review); //nest
                 }, error -> System.out.println("error in reccomended"));
         queue.add(string_req_recommended);
 
@@ -271,7 +286,8 @@ public class Details1Activity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                String url1a = "https://www.imdb.com/title/" +imdb[0];
+
+                String url1a =    "https://www.themoviedb.org/"+ type+"/"+id_here; //"https://www.imdb.com/title/" +imdb[0];
                 String url2 = "https://www.facebook.com/sharer/sharer.php?u=" + url1a;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url2));
@@ -284,7 +300,7 @@ public class Details1Activity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                String url1b = "https://www.imdb.com/title/" +imdb[0];
+                String url1b =  "https://www.themoviedb.org/"+ type+"/"+id_here; // "https://www.imdb.com/title/" +imdb[0];
                 String url3 = "https://twitter.com/intent/tweet?text=Check%20this%20out!%20" + url1b ;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url3));
