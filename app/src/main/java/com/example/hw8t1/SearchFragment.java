@@ -94,6 +94,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                no_results.setVisibility(View.GONE);
                 RequestQueue queue = Volley.newRequestQueue(v.getContext());//
                 String url_search= "https://hw8gcptrialco.wl.r.appspot.com/search/"+newText;
                 JsonArrayRequest search_string_request = new JsonArrayRequest(Request.Method.GET, url_search, null,
@@ -128,6 +129,9 @@ public class SearchFragment extends Fragment {
                 queue.add(search_string_request);
                 return false;
             }
+
+
+
 
 
 

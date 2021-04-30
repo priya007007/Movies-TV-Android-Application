@@ -1,5 +1,7 @@
 package com.example.hw8t1;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -45,6 +47,9 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
+
 
         System.out.println("Called - goes to home fragment");
         View v =inflater.inflate(R.layout.fragment_home,container,false);
@@ -258,9 +263,17 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+        TextView t = v.findViewById(R.id.tmdbwebsiteTV);
+        t.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.themoviedb.org/")));
+            }
+        });
         return v;
     }
-
 
 
 
@@ -268,7 +281,7 @@ public class HomeFragment extends Fragment {
     private void initRecyclerView(View v,ArrayList<CardModel> response_new ){
         Log.d(TAG,"initRecyclerView: init recyclerview");
         LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext(), LinearLayoutManager.HORIZONTAL,false);
-        RecyclerView recyclerView = v.findViewById(R.id.recylerView1);//
+        RecyclerView recyclerView = v.findViewById(R.id.recylerView2);//
         recyclerView.setLayoutManager(layoutManager);
         Boolean q = true;
         RecyclerViewAdaptor adapter = new RecyclerViewAdaptor(v.getContext(),response_new,q); //
@@ -277,7 +290,7 @@ public class HomeFragment extends Fragment {
 
     private void initRecyclerView_Top_Rated_Movies(View v,ArrayList<CardModel> response_top_movies ){
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(v.getContext(), LinearLayoutManager.HORIZONTAL,false);
-        RecyclerView recyclerView2 = v.findViewById(R.id.recylerView2);//
+        RecyclerView recyclerView2 = v.findViewById(R.id.recylerView1);//
         recyclerView2.setLayoutManager(layoutManager2);
         Boolean q = true;
         RecyclerViewAdaptor adapter2 = new RecyclerViewAdaptor(v.getContext(),response_top_movies,q); //

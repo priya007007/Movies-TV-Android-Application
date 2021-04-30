@@ -54,13 +54,20 @@ public class Details1Activity extends AppCompatActivity {
         final String[] videoid = {""};
         final String[] imdb = new String[1];
 
+        setContentView(R.layout.details1_layout); //for this activity
 
-
-       // RelativeLayout r = findViewById(R.id.loads_done);
-       // RelativeLayout loading = findViewById( R.id.loads);
-
-     //  r.setVisibility(View.GONE);
-      //  loading.setVisibility(View.VISIBLE);
+//        RelativeLayout r = findViewById(R.id.loading_done);
+//        RelativeLayout loading = findViewById( R.id.loads);
+//
+//        TextView t =   findViewById(R.id.title);
+//        t.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                System.out.println("CLICK REGISTERS");
+//            }
+//        });
+//        r.setVisibility(View.GONE);
+//        loading.setVisibility(View.GONE);
 
 
         Bundle b = getIntent().getExtras();
@@ -87,7 +94,11 @@ public class Details1Activity extends AppCompatActivity {
                             y.setVisibility(View.VISIBLE);
                             z.setVisibility(View.GONE);
                         }
+//                        r.setVisibility(View.VISIBLE);
+//                        loading.setVisibility(View.GONE);
+
                     }
+
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -95,7 +106,7 @@ public class Details1Activity extends AppCompatActivity {
             }
         });
 
-        queue.add(stringRequest);
+        queue.add(stringRequest); //nest
 
         String url_details = "https://hw8gcptrialco.wl.r.appspot.com/"+type+"/MovieDetails/"+id_here;
         StringRequest stringRequestdetails = new StringRequest(Request.Method.GET, url_details,
@@ -127,9 +138,10 @@ public class Details1Activity extends AppCompatActivity {
                             TextView year_view = findViewById(R.id.textView8);
                             year_view.setText(year);
 
+//                            r.setVisibility(View.VISIBLE); ///////////
+//                            loading.setVisibility(View.VISIBLE);
 
-                   //         r.setVisibility(View.VISIBLE);
-                     //       loading.setVisibility(View.GONE);
+
 
 
                         } catch (JSONException e) {
@@ -143,7 +155,7 @@ public class Details1Activity extends AppCompatActivity {
                 System.out.println("That didn't work for volley details!");
             }
         });
-
+        queue.add(stringRequestdetails);//nest
 
         String url_cast = "https://hw8gcptrialco.wl.r.appspot.com/"+type+"/Android_Movie_Cast_Details/"+id_here;
         ArrayList<model_cast> cast_response = new ArrayList<model_cast>();
@@ -163,25 +175,30 @@ public class Details1Activity extends AppCompatActivity {
                         }
                     }
                     initRecyclerView(this,cast_response);
-                    queue.add(stringRequestdetails);//nest
-                }, error -> System.out.println(error));
 
+                }, error -> System.out.println(error));
+        queue.add(string_req_cast); //nest
 
         String url_review = "https://hw8gcptrialco.wl.r.appspot.com/"+type+"/Movie_Review_List/"+id_here;
         ArrayList<reviewModal> review_response = new ArrayList<reviewModal>();
         JsonArrayRequest string_req_review = new JsonArrayRequest (Request.Method.GET, url_review,null,
 
                 response ->
-                {
-                    System.out.println(response);
+                {   System.out.println(response);
                     System.out.println(id_here);
                     System.out.println("type");
                     System.out.println(type);
+                    if (response.length() == 0) {
+                        System.out.println("response.length()");
+                        TextView t = findViewById(R.id.review_word);
+                        t.setText("");
+                    }
 
-                    for(int i=0; i<3;i++){
+                    else{
+                    for (int i = 0; i < 3; i++) {
                         try {
                             System.out.println("response");
-                            JSONObject review_response_temp = ((JSONObject)response.get(i));
+                            JSONObject review_response_temp = ((JSONObject) response.get(i));
                             String username = (String) review_response_temp.get("username");
 
 
@@ -193,23 +210,24 @@ public class Details1Activity extends AppCompatActivity {
 
                             String content = (String) review_response_temp.get("content");
 
-                           int rating_here = (int) review_response_temp.get("rating_here");
-                          int  rating = rating_here/2;
-                            review_response.add(new reviewModal(username,created_at,content,rating));
+                            int rating_here = (int) review_response_temp.get("rating_here");
+                            int rating = rating_here / 2;
+                            review_response.add(new reviewModal(username, created_at, content, rating));
 
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                    System.out.println("https://api.themoviedb.org/3/"+ type+"/"+id_here+"/reviews?api_key=fe840c68564be174ec52a012194057e7&language=en-US&page=1");
-                    System.out.println("http://localhost:8080/"+type+"/Movie_Review_List/"+id_here);
 
-                    BinitRecyclerViewB(this,review_response);
-                    queue.add(string_req_cast); //nest
+                    BinitRecyclerViewB(this, review_response);
 
+                }
                 }, error -> System.out.println(error));
 
+        System.out.println("https://api.themoviedb.org/3/" + type + "/" + id_here + "/reviews?api_key=fe840c68564be174ec52a012194057e7&language=en-US&page=1");
+        System.out.println("http://localhost:8080/" + type + "/Movie_Review_List/" + id_here);
 
+        queue.add(string_req_review); //nest
 
         String url_recommended = "https://hw8gcptrialco.wl.r.appspot.com/"+type+"/Recommended_Movies/"+id_here;
         ArrayList<CardModel> recc_response = new ArrayList<CardModel>();
@@ -231,7 +249,7 @@ public class Details1Activity extends AppCompatActivity {
                         }
                     }
                     initRecyclerView_reviews(this,recc_response);
-                    queue.add(string_req_review); //nest
+
                 }, error -> System.out.println("error in reccomended"));
         queue.add(string_req_recommended);
 

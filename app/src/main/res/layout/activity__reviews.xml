@@ -13,7 +13,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
 
-            android:background="#EB161C1C"
             android:padding="10dp"
             tools:context=".Activity_Reviews">
 
@@ -39,16 +38,17 @@
                     android:layout_height="wrap_content"
                     android:textColor="#FFFFFF"
 
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     app:drawableEndCompat="@drawable/ic_baseline_star_rate_24" />
 
                 <TextView
                     android:id="@+id/idB"
+                    android:padding="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/idA"
                     android:textColor="#2196F3"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
 

@@ -18,7 +18,7 @@
     </style>
 
 
-    <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Gets rid of the search icon -->
         <!--        <item name="searchIcon">@null</item>-->
         <!-- Gets rid of the "underline" in the text -->
@@ -28,7 +28,7 @@
         <!--<item name="queryBackground">@color/white</item>-->
 
         <!--        <item name="queryHint">@string/search_hint</item>-->
-        <item name="android:windowBackground">@drawable/start_background</item>
+        <item name="android:windowBackground">@drawable/temp_start</item>
         <item name="colorPrimary">@color/background_app</item>
         <item name="colorPrimaryVariant">@color/background_app</item>
 
