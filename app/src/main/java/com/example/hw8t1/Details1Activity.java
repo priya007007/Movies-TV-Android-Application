@@ -46,7 +46,7 @@ import java.util.List;
 public class Details1Activity extends AppCompatActivity {
 
     private static final String TAG = "TAG Details1Actvity TAG";
-
+//https://hw8gcptrialco.wl.r.appspot.com/   the link source
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final int[] back = {0};
@@ -157,7 +157,7 @@ public class Details1Activity extends AppCompatActivity {
         });
         queue.add(stringRequestdetails);//nest
 
-        String url_cast = "https://hw8gcptrialco.wl.r.appspot.com/"+type+"/Android_Movie_Cast_Details/"+id_here;
+        String url_cast = " https://hw8gcptrialco.wl.r.appspot.com/"+type+"/Android_Movie_Cast_Details/"+id_here;
         ArrayList<model_cast> cast_response = new ArrayList<model_cast>();
         JsonArrayRequest string_req_cast = new JsonArrayRequest (Request.Method.GET, url_cast,null,
 
@@ -224,8 +224,7 @@ public class Details1Activity extends AppCompatActivity {
                 }
                 }, error -> System.out.println(error));
 
-        System.out.println("https://api.themoviedb.org/3/" + type + "/" + id_here + "/reviews?api_key=fe840c68564be174ec52a012194057e7&language=en-US&page=1");
-        System.out.println("http://localhost:8080/" + type + "/Movie_Review_List/" + id_here);
+        System.out.println("https://hw8gcptrialco.wl.r.appspot.com/" + type + "/Movie_Review_List/" + id_here);
 
         queue.add(string_req_review); //nest
 

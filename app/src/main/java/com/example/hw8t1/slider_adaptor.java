@@ -40,7 +40,7 @@ public class slider_adaptor extends  SliderViewAdapter<slider_adaptor.SliderAdap
 
     @Override
     public void onBindViewHolder(slider_adaptor.SliderAdapterViewHolder viewHolder, int position) {
-        Glide.with(context) //context or viewHolder.itemView????both work https://www.geeksforgeeks.org/auto-image-slider-in-android-with-example/ seem to pass itemview instead of context
+        Glide.with(context)
                 .asBitmap()
                 .load(Slider_List.get(position).img)
                 .apply(new RequestOptions().centerCrop()) //new code
@@ -49,7 +49,7 @@ public class slider_adaptor extends  SliderViewAdapter<slider_adaptor.SliderAdap
 //        Blurry.with(context).from().into(viewHolder.imageView_parent);
 
 
-        Glide.with(context) //context or viewHolder.itemView????both work https://www.geeksforgeeks.org/auto-image-slider-in-android-with-example/ seem to pass itemview instead of context
+        Glide.with(context)
                 .asBitmap()
                 .load(Slider_List.get(position).img)
                 .into(viewHolder.imageView_child);

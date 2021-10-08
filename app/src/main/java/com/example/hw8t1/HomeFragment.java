@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
 //ENDPOINT: movieNowPlaying
-        String url_movies_slider ="https://hw8gcptrialco.wl.r.appspot.com/movieNowPlaying_android"; //MOVIES SLIDER
+        String url_movies_slider =" https://hw8gcptrialco.wl.r.appspot.com/movieNowPlaying_android"; //MOVIES SLIDER
         ArrayList<CardModel> movies_slider_arraylist = new ArrayList<CardModel>();
         JsonObjectRequest movies_slider_request = new JsonObjectRequest(Request.Method.GET, url_movies_slider, null,
                 response ->

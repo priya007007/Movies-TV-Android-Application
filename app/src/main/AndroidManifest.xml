@@ -40,6 +40,9 @@
 
 </manifest>
 
+<!--    android:theme="@style/Theme.AppCompat.Light.NoActionBar"-->
+<!---->
+
 
 <!--    Theme.AppCompat.Light.NoActionBar-->
 <!--original in intent filter for main activity:-->
