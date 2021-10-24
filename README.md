@@ -3,7 +3,7 @@
 Description: Android application that displays movies and tv shows,has Search, Details of selected Movie/TV shows and Watchlist features (UI similar to Netflix/HBO). It has the ability to add a movie/tv show to a watchlist selection that persists even after closing the window. 
 Created endpoints in Node.js to fetch data from TMDB API.
 Frontend done using Android Studio. Backend through Node.js hosted on GCP server. 
-> Technology used: Node.js, GAE, Android Studio, Shared Preferences, JSON
+> Technology used: Java, Node.js, GAE, Android Studio, Shared Preferences, JSON
 
 ## Home Page - Movies:
 ![image](https://user-images.githubusercontent.com/78100992/138613049-b9854285-222e-4984-8736-52addcc9bba3.png)
